@@ -46,8 +46,7 @@ jobs:
 
       - name: Create deploy package
         run: |
-          tar -czf deploy-package.tar.gz \
-            --exclude=deploy-package.tar.gz \
+          tar -czf /tmp/deploy-package.tar.gz \
             --exclude=.git \
             --exclude=.github \
             --exclude=node_modules \
@@ -62,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: deploy-package
-          path: deploy-package.tar.gz
+          path: /tmp/deploy-package.tar.gz
           retention-days: 1
 
   deploy:
