@@ -31,6 +31,7 @@ import {
     Home,
     KeyRound,
     Menu,
+    ReceiptText,
     Send,
 } from 'lucide-react';
 import AppLogo from './app-logo';
@@ -51,6 +52,11 @@ const mainNavItems: NavItem[] = [
         title: 'Transferências',
         href: '/transferencias',
         icon: ArrowRightLeft,
+    },
+    {
+        title: 'Extrato',
+        href: '/transacoes',
+        icon: ReceiptText,
     },
     {
         title: 'Boletos',

@@ -110,6 +110,23 @@
     }
 }
 
+@media print {
+    body {
+        background: #ffffff;
+        color: #230f2b;
+    }
+
+    [data-slot='sidebar'],
+    .print-hidden {
+        display: none !important;
+    }
+
+    .print-area {
+        box-shadow: none !important;
+        border: none !important;
+    }
+}
+
 @keyframes float-slow {
     0%,
     100% {

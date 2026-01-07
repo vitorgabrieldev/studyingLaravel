@@ -11,7 +11,7 @@ import {
     PlusCircle,
     Send,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -39,49 +39,15 @@ type DashboardData = {
     transactions: Transaction[];
 };
 
-export default function Dashboard() {
-    const [data, setData] = useState<DashboardData | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+export default function Dashboard({
+    dashboard,
+}: {
+    dashboard: DashboardData;
+}) {
+    const data = dashboard;
+    const loading = false;
+    const error = null;
     const [hideValues, setHideValues] = useState(false);
-
-    useEffect(() => {
-        let isMounted = true;
-
-        fetch('/api/dashboard', {
-            credentials: 'include',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-            },
-        })
-            .then(async (response) => {
-                if (!response.ok) {
-                    throw new Error('Falha ao carregar dados.');
-                }
-
-                return response.json();
-            })
-            .then((payload) => {
-                if (isMounted) {
-                    setData(payload);
-                    setError(null);
-                }
-            })
-            .catch((err) => {
-                if (isMounted) {
-                    setError(err.message);
-                }
-            })
-            .finally(() => {
-                if (isMounted) {
-                    setLoading(false);
-                }
-            });
-
-        return () => {
-            isMounted = false;
-        };
-    }, []);
 
     const accountLabel = data
         ? `${data.account.branch_number} / ${data.account.account_number}-${data.account.account_digit}`
@@ -239,7 +205,7 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="rounded-3xl border border-white/70 bg-gradient-to-br from-[#fde7de] via-white to-white p-6 text-foreground shadow-lg">
+                    <div className="rounded-3xl border h-fit border-white/70 bg-gradient-to-br from-[#fde7de] via-white to-white p-6 text-foreground shadow-lg">
                         <div className="flex items-center justify-between">
                             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
                                 Cartão digital

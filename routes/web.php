@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -11,9 +13,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'show'])
+        ->name('dashboard');
 
     Route::get('pix', function () {
         return Inertia::render('pix/index');
@@ -30,6 +31,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('boletos', function () {
         return Inertia::render('boletos');
     })->name('boletos.index');
+
+    Route::get('transacoes', [TransactionController::class, 'index'])
+        ->name('transactions.index');
+
+    Route::get('transacoes/{transaction}', [TransactionController::class, 'show'])
+        ->name('transactions.show');
 });
 
 require __DIR__.'/settings.php';

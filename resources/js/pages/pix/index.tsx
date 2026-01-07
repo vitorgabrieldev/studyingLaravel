@@ -1,8 +1,10 @@
 import AppLayout from '@/layouts/app-layout';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Skeleton } from '@/components/ui/skeleton';
 import { formatCurrency, getCsrfHeaders, toCents } from '@/lib/utils';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import { CheckCircle2, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, TriangleAlert } from 'lucide-react';
 import { FormEvent, useEffect, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -150,14 +152,21 @@ export default function PixSend() {
                     </div>
 
                     {error && (
-                        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
-                            {error}
-                        </div>
+                        <Alert
+                            variant="destructive"
+                            className="rounded-2xl border border-red-200 bg-red-50 text-red-600"
+                        >
+                            <TriangleAlert />
+                            <AlertTitle>Ops!</AlertTitle>
+                            <AlertDescription>{error}</AlertDescription>
+                        </Alert>
                     )}
                     {success && (
-                        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
-                            {success}
-                        </div>
+                        <Alert className="rounded-2xl border border-emerald-200 bg-emerald-50 text-emerald-700">
+                            <CheckCircle2 />
+                            <AlertTitle>Pix enviado</AlertTitle>
+                            <AlertDescription>{success}</AlertDescription>
+                        </Alert>
                     )}
 
                     <button
@@ -183,9 +192,11 @@ export default function PixSend() {
                         </div>
                         <div className="mt-4 space-y-3 text-sm text-[#3b2a5b]">
                             {loadingKeys && (
-                                <p className="text-xs text-[#7b6a99]">
-                                    Consultando suas chaves...
-                                </p>
+                                <div className="space-y-2">
+                                    <Skeleton className="h-9 w-full rounded-2xl" />
+                                    <Skeleton className="h-9 w-full rounded-2xl" />
+                                    <Skeleton className="h-9 w-3/4 rounded-2xl" />
+                                </div>
                             )}
                             {!loadingKeys && keys.length === 0 && (
                                 <p className="text-xs text-[#7b6a99]">

@@ -17,6 +17,7 @@ import {
     FileText,
     Home,
     KeyRound,
+    ReceiptText,
     Send,
     Settings,
 } from 'lucide-react';
@@ -37,6 +38,11 @@ const mainNavItems: NavItem[] = [
         title: 'Transferências',
         href: '/transferencias',
         icon: ArrowRightLeft,
+    },
+    {
+        title: 'Extrato',
+        href: '/transacoes',
+        icon: ReceiptText,
     },
     {
         title: 'Boletos',
