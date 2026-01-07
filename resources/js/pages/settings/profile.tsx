@@ -16,7 +16,7 @@ import { edit } from '@/routes/profile';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Profile settings',
+        title: 'Perfil',
         href: edit().url,
     },
 ];
@@ -32,13 +32,13 @@ export default function Profile({
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Profile settings" />
+            <Head title="Perfil" />
 
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Profile information"
-                        description="Update your name and email address"
+                        title="Dados pessoais"
+                        description="Mantenha seus dados sempre atualizados."
                     />
 
                     <Form
@@ -51,7 +51,7 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Name</Label>
+                                    <Label htmlFor="name">Nome</Label>
 
                                     <Input
                                         id="name"
@@ -60,7 +60,7 @@ export default function Profile({
                                         name="name"
                                         required
                                         autoComplete="name"
-                                        placeholder="Full name"
+                                        placeholder="Nome completo"
                                     />
 
                                     <InputError
@@ -70,7 +70,7 @@ export default function Profile({
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email address</Label>
+                                    <Label htmlFor="email">Email</Label>
 
                                     <Input
                                         id="email"
@@ -80,7 +80,7 @@ export default function Profile({
                                         name="email"
                                         required
                                         autoComplete="username"
-                                        placeholder="Email address"
+                                        placeholder="Email principal"
                                     />
 
                                     <InputError
@@ -89,28 +89,224 @@ export default function Profile({
                                     />
                                 </div>
 
+                                <div className="grid gap-2 sm:grid-cols-2">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="cpf">CPF</Label>
+                                        <Input
+                                            id="cpf"
+                                            className="mt-1 block w-full"
+                                            defaultValue={auth.user.cpf ?? ''}
+                                            name="cpf"
+                                            required
+                                            autoComplete="off"
+                                            placeholder="000.000.000-00"
+                                        />
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.cpf}
+                                        />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="phone">Celular</Label>
+                                        <Input
+                                            id="phone"
+                                            className="mt-1 block w-full"
+                                            defaultValue={auth.user.phone ?? ''}
+                                            name="phone"
+                                            required
+                                            autoComplete="tel"
+                                            placeholder="(00) 00000-0000"
+                                        />
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.phone}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid gap-2">
+                                    <Label htmlFor="birth_date">
+                                        Data de nascimento
+                                    </Label>
+                                    <Input
+                                        id="birth_date"
+                                        type="date"
+                                        className="mt-1 block w-full"
+                                        defaultValue={
+                                            auth.user.birth_date ?? ''
+                                        }
+                                        name="birth_date"
+                                        required
+                                    />
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.birth_date}
+                                    />
+                                </div>
+
+                                <HeadingSmall
+                                    title="Endereco"
+                                    description="Atualize seu endereco residencial."
+                                />
+
+                                <div className="grid gap-2 sm:grid-cols-3">
+                                    <div className="grid gap-2 sm:col-span-2">
+                                        <Label htmlFor="address_line">
+                                            Rua
+                                        </Label>
+                                        <Input
+                                            id="address_line"
+                                            className="mt-1 block w-full"
+                                            defaultValue={
+                                                auth.user.address_line ?? ''
+                                            }
+                                            name="address_line"
+                                            required
+                                            placeholder="Rua ou avenida"
+                                        />
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.address_line}
+                                        />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="address_number">
+                                            Numero
+                                        </Label>
+                                        <Input
+                                            id="address_number"
+                                            className="mt-1 block w-full"
+                                            defaultValue={
+                                                auth.user.address_number ?? ''
+                                            }
+                                            name="address_number"
+                                            required
+                                            placeholder="000"
+                                        />
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.address_number}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid gap-2 sm:grid-cols-2">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="address_complement">
+                                            Complemento
+                                        </Label>
+                                        <Input
+                                            id="address_complement"
+                                            className="mt-1 block w-full"
+                                            defaultValue={
+                                                auth.user.address_complement ??
+                                                ''
+                                            }
+                                            name="address_complement"
+                                            placeholder="Apto, bloco, etc"
+                                        />
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.address_complement}
+                                        />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="neighborhood">
+                                            Bairro
+                                        </Label>
+                                        <Input
+                                            id="neighborhood"
+                                            className="mt-1 block w-full"
+                                            defaultValue={
+                                                auth.user.neighborhood ?? ''
+                                            }
+                                            name="neighborhood"
+                                            required
+                                            placeholder="Bairro"
+                                        />
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.neighborhood}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid gap-2 sm:grid-cols-3">
+                                    <div className="grid gap-2 sm:col-span-2">
+                                        <Label htmlFor="city">Cidade</Label>
+                                        <Input
+                                            id="city"
+                                            className="mt-1 block w-full"
+                                            defaultValue={
+                                                auth.user.city ?? ''
+                                            }
+                                            name="city"
+                                            required
+                                            placeholder="Cidade"
+                                        />
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.city}
+                                        />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="state">UF</Label>
+                                        <Input
+                                            id="state"
+                                            className="mt-1 block w-full"
+                                            defaultValue={
+                                                auth.user.state ?? ''
+                                            }
+                                            name="state"
+                                            required
+                                            placeholder="SP"
+                                        />
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.state}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid gap-2">
+                                    <Label htmlFor="postal_code">CEP</Label>
+                                    <Input
+                                        id="postal_code"
+                                        className="mt-1 block w-full"
+                                        defaultValue={
+                                            auth.user.postal_code ?? ''
+                                        }
+                                        name="postal_code"
+                                        required
+                                        placeholder="00000-000"
+                                    />
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.postal_code}
+                                    />
+                                </div>
+
                                 {mustVerifyEmail &&
                                     auth.user.email_verified_at === null && (
                                         <div>
                                             <p className="-mt-4 text-sm text-muted-foreground">
-                                                Your email address is
-                                                unverified.{' '}
+                                                Seu email ainda nao foi
+                                                verificado.{' '}
                                                 <Link
                                                     href={send()}
                                                     as="button"
                                                     className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                                 >
-                                                    Click here to resend the
-                                                    verification email.
+                                                    Clique aqui para reenviar o
+                                                    email de verificacao.
                                                 </Link>
                                             </p>
 
                                             {status ===
                                                 'verification-link-sent' && (
                                                 <div className="mt-2 text-sm font-medium text-green-600">
-                                                    A new verification link has
-                                                    been sent to your email
-                                                    address.
+                                                    Um novo link de verificacao
+                                                    foi enviado para seu email.
                                                 </div>
                                             )}
                                         </div>
@@ -121,7 +317,7 @@ export default function Profile({
                                         disabled={processing}
                                         data-test="update-profile-button"
                                     >
-                                        Save
+                                        Salvar
                                     </Button>
 
                                     <Transition
@@ -132,7 +328,7 @@ export default function Profile({
                                         leaveTo="opacity-0"
                                     >
                                         <p className="text-sm text-neutral-600">
-                                            Saved
+                                            Salvo
                                         </p>
                                     </Transition>
                                 </div>

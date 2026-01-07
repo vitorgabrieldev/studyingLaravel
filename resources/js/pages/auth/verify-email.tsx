@@ -10,31 +10,33 @@ import { Form, Head } from '@inertiajs/react';
 export default function VerifyEmail({ status }: { status?: string }) {
     return (
         <AuthLayout
-            title="Verify email"
-            description="Please verify your email address by clicking on the link we just emailed to you."
+            title="Verificar email"
+            description="Enviamos um link para confirmar seu email."
         >
-            <Head title="Email verification" />
+            <Head title="Verificar email" />
 
             {status === 'verification-link-sent' && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">
-                    A new verification link has been sent to the email address
-                    you provided during registration.
+                    Um novo link foi enviado para o email cadastrado.
                 </div>
             )}
 
             <Form {...send.form()} className="space-y-6 text-center">
                 {({ processing }) => (
                     <>
-                        <Button disabled={processing} variant="secondary">
+                        <Button
+                            disabled={processing}
+                            className="w-full rounded-full bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
+                        >
                             {processing && <Spinner />}
-                            Resend verification email
+                            Reenviar email de verificacao
                         </Button>
 
                         <TextLink
                             href={logout()}
-                            className="mx-auto block text-sm"
+                            className="mx-auto block text-sm text-[#5b21b6]"
                         >
-                            Log out
+                            Sair
                         </TextLink>
                     </>
                 )}

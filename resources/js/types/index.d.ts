@@ -34,6 +34,16 @@ export interface User {
     id: number;
     name: string;
     email: string;
+    cpf?: string;
+    phone?: string;
+    birth_date?: string;
+    address_line?: string;
+    address_number?: string;
+    address_complement?: string | null;
+    neighborhood?: string;
+    city?: string;
+    state?: string;
+    postal_code?: string;
     avatar?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;

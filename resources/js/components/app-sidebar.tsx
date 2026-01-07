@@ -10,30 +10,51 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import {
+    ArrowRightLeft,
+    FileText,
+    Home,
+    KeyRound,
+    Send,
+    Settings,
+} from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
+        title: 'Inicio',
+        href: '/dashboard',
+        icon: Home,
+    },
+    {
+        title: 'Pix',
+        href: '/pix',
+        icon: Send,
+    },
+    {
+        title: 'Transferencias',
+        href: '/transferencias',
+        icon: ArrowRightLeft,
+    },
+    {
+        title: 'Boletos',
+        href: '/boletos',
+        icon: FileText,
+    },
+    {
+        title: 'Chaves Pix',
+        href: '/pix/keys',
+        icon: KeyRound,
     },
 ];
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
+        title: 'Configuracoes',
+        href: '/settings/profile',
+        icon: Settings,
     },
 ];
 
@@ -43,8 +64,8 @@ export function AppSidebar() {
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
+                            <SidebarMenuButton size="lg" asChild>
+                            <Link href="/dashboard" prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>

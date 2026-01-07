@@ -30,6 +30,16 @@ class ProfileUpdateTest extends TestCase
             ->patch(route('profile.update'), [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
+                'cpf' => '12345678901',
+                'phone' => '11999999999',
+                'birth_date' => '1995-05-10',
+                'address_line' => 'Rua Exemplo',
+                'address_number' => '123',
+                'address_complement' => 'Apto 45',
+                'neighborhood' => 'Centro',
+                'city' => 'Sao Paulo',
+                'state' => 'SP',
+                'postal_code' => '01000-000',
             ]);
 
         $response
@@ -52,6 +62,16 @@ class ProfileUpdateTest extends TestCase
             ->patch(route('profile.update'), [
                 'name' => 'Test User',
                 'email' => $user->email,
+                'cpf' => $user->cpf,
+                'phone' => $user->phone,
+                'birth_date' => $user->birth_date?->format('Y-m-d'),
+                'address_line' => $user->address_line,
+                'address_number' => $user->address_number,
+                'address_complement' => $user->address_complement,
+                'neighborhood' => $user->neighborhood,
+                'city' => $user->city,
+                'state' => $user->state,
+                'postal_code' => $user->postal_code,
             ]);
 
         $response

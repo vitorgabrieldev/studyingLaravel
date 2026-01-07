@@ -14,6 +14,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    Route::get('pix', function () {
+        return Inertia::render('pix/index');
+    })->name('pix.index');
+
+    Route::get('pix/keys', function () {
+        return Inertia::render('pix/keys');
+    })->name('pix.keys');
+
+    Route::get('transferencias', function () {
+        return Inertia::render('transfers');
+    })->name('transfers.index');
+
+    Route::get('boletos', function () {
+        return Inertia::render('boletos');
+    })->name('boletos.index');
 });
 
 require __DIR__.'/settings.php';
