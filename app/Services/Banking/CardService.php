@@ -22,12 +22,26 @@ class CardService
         return $this->createPhysicalCard($account);
     }
 
+    public function __construct(private readonly NotificationService $notificationService)
+    {
+    }
+
     public function createPhysicalCard(Account $account): Card
     {
-        return $this->createCard($account, 'physical', [
+        $card = $this->createCard($account, 'physical', [
             'nickname' => 'Cartao principal',
             'limit_cents' => self::DEFAULT_LIMIT_CENTS,
         ]);
+
+        $this->notificationService->notify(
+            $account->user,
+            'Cartão físico ativo',
+            'Seu cartão físico foi emitido e está disponível.',
+            'info',
+            ['card_id' => $card->id],
+        );
+
+        return $card;
     }
 
     public function createVirtualCard(Account $account, ?string $nickname, ?int $limitCents): Card
@@ -35,10 +49,20 @@ class CardService
         $limit = $limitCents ?? self::MAX_VIRTUAL_LIMIT_CENTS;
         $limit = max(1000, min($limit, self::MAX_VIRTUAL_LIMIT_CENTS));
 
-        return $this->createCard($account, 'virtual', [
+        $card = $this->createCard($account, 'virtual', [
             'nickname' => $nickname ?: 'Cartao virtual',
             'limit_cents' => $limit,
         ]);
+
+        $this->notificationService->notify(
+            $account->user,
+            'Cartão virtual criado',
+            'Um novo cartão virtual foi criado.',
+            'info',
+            ['card_id' => $card->id],
+        );
+
+        return $card;
     }
 
     public function replacePhysicalCard(Account $account, Card $currentCard): Card
@@ -48,7 +72,17 @@ class CardService
             'replaced_at' => now(),
         ]);
 
-        return $this->createPhysicalCard($account);
+        $card = $this->createPhysicalCard($account);
+
+        $this->notificationService->notify(
+            $account->user,
+            'Novo cartão solicitado',
+            'Seu novo cartão físico foi solicitado.',
+            'info',
+            ['card_id' => $card->id],
+        );
+
+        return $card;
     }
 
     /**

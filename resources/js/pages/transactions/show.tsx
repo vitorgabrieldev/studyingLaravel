@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency, getCsrfHeaders } from '@/lib/utils';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { ChevronLeft, Copy, Download, Share2 } from 'lucide-react';
@@ -37,6 +37,7 @@ type Transaction = {
     description: string;
     created_at: string | null;
     reference: string;
+    tags: string[];
     meta: TransactionMeta;
 };
 
@@ -54,6 +55,10 @@ export default function TransactionShow({
     account: Account;
 }) {
     const [copied, setCopied] = useState(false);
+    const [tags, setTags] = useState(transaction.tags ?? []);
+    const [tagInput, setTagInput] = useState('');
+    const [savingTags, setSavingTags] = useState(false);
+    const [tagsMessage, setTagsMessage] = useState<string | null>(null);
 
     const createdAt = transaction.created_at
         ? new Date(transaction.created_at).toLocaleString('pt-BR')
@@ -91,6 +96,48 @@ export default function TransactionShow({
         } catch {
             setCopied(false);
         }
+    };
+
+    const handleAddTag = () => {
+        const next = tagInput.trim();
+        if (!next) {
+            return;
+        }
+
+        if (tags.includes(next)) {
+            setTagInput('');
+            return;
+        }
+
+        setTags((prev) => [...prev, next]);
+        setTagInput('');
+    };
+
+    const handleSaveTags = async () => {
+        setSavingTags(true);
+        setTagsMessage(null);
+
+        const response = await fetch(`/api/transactions/${transaction.id}/tags`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                ...getCsrfHeaders(),
+            },
+            body: JSON.stringify({ tags }),
+        });
+
+        const payload = await response.json();
+
+        if (response.ok) {
+            setTags(payload.tags ?? tags);
+            setTagsMessage('Tags salvas.');
+        } else {
+            setTagsMessage(payload.message ?? 'Não foi possível salvar.');
+        }
+
+        setSavingTags(false);
     };
 
     return (
@@ -248,6 +295,57 @@ export default function TransactionShow({
                                     {transaction.meta.barcode}
                                 </p>
                             </div>
+                        )}
+                    </div>
+
+                    <div className="mt-6 rounded-2xl border border-white/70 bg-white p-4">
+                        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                            Tags
+                        </p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                            {tags.length === 0 && (
+                                <span className="text-xs text-muted-foreground">
+                                    Nenhuma tag adicionada.
+                                </span>
+                            )}
+                            {tags.map((tag) => (
+                                <span
+                                    key={tag}
+                                    className="rounded-full border border-white/70 bg-white px-3 py-1 text-[10px] font-semibold text-[#b91c3a]"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                        <div className="mt-4 flex flex-wrap gap-2">
+                            <input
+                                value={tagInput}
+                                onChange={(event) =>
+                                    setTagInput(event.target.value)
+                                }
+                                placeholder="Nova tag"
+                                className="h-9 rounded-full border border-white/70 bg-white/80 px-3 text-xs text-foreground outline-none"
+                            />
+                            <button
+                                type="button"
+                                onClick={handleAddTag}
+                                className="rounded-full border border-white/70 bg-white px-3 py-2 text-xs font-semibold text-[#b91c3a] transition hover:bg-[#fde2d8]"
+                            >
+                                Adicionar
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleSaveTags}
+                                disabled={savingTags}
+                                className="rounded-full bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:bg-primary/90"
+                            >
+                                {savingTags ? 'Salvando...' : 'Salvar tags'}
+                            </button>
+                        </div>
+                        {tagsMessage && (
+                            <p className="mt-2 text-xs text-muted-foreground">
+                                {tagsMessage}
+                            </p>
                         )}
                     </div>
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CardPageController;
 use App\Http\Controllers\TransactionController;
@@ -12,6 +13,22 @@ Route::get('/', function () {
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('home');
+
+Route::get('sobre', function () {
+    return Inertia::render('about');
+})->name('about');
+
+Route::get('contato', function () {
+    return Inertia::render('contact');
+})->name('contact');
+
+Route::get('faq', function () {
+    return Inertia::render('faq');
+})->name('faq');
+
+Route::get('politicas', function () {
+    return Inertia::render('policies');
+})->name('policies');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'show'])
@@ -27,6 +44,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('cartoes', [CardPageController::class, 'index'])
         ->name('cards.index');
+
+    Route::get('painel', [AnalyticsController::class, 'index'])
+        ->name('analytics.index');
+
+    Route::get('notificacoes', function () {
+        return Inertia::render('notifications');
+    })->name('notifications.index');
 
     Route::get('transferencias', function () {
         return Inertia::render('transfers');

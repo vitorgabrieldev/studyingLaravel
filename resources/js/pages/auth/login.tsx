@@ -10,6 +10,7 @@ import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/react';
+import { useRef, useState } from 'react';
 
 interface LoginProps {
     status?: string;
@@ -17,15 +18,47 @@ interface LoginProps {
     canRegister: boolean;
 }
 
+const DIGIT_COUNT = 8;
+
 export default function Login({
     status,
     canResetPassword,
     canRegister,
 }: LoginProps) {
+    const [passwordDigits, setPasswordDigits] = useState<string[]>(
+        Array(DIGIT_COUNT).fill(''),
+    );
+    const passwordRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+    const password = passwordDigits.join('');
+
+    const handleDigitChange = (value: string, index: number) => {
+        if (!/^\d?$/.test(value)) {
+            return;
+        }
+
+        const next = [...passwordDigits];
+        next[index] = value;
+        setPasswordDigits(next);
+
+        if (value && passwordRefs.current[index + 1]) {
+            passwordRefs.current[index + 1]?.focus();
+        }
+    };
+
+    const handleDigitKeyDown = (
+        event: React.KeyboardEvent<HTMLInputElement>,
+        index: number,
+    ) => {
+        if (event.key === 'Backspace' && !passwordDigits[index] && index > 0) {
+            passwordRefs.current[index - 1]?.focus();
+        }
+    };
+
     return (
         <AuthLayout
             title="Entrar na sua conta"
-            description="Use seu email e senha para continuar."
+            description="Use seu email e a senha numérica de 8 dígitos."
         >
             <Head title="Entrar" />
 
@@ -48,12 +81,12 @@ export default function Login({
                                     tabIndex={1}
                                     autoComplete="email"
                                     placeholder="email@example.com"
-                                    className="h-11 rounded-xl border-white/80 bg-white/70"
+                                    className="h-11 rounded-[8px] border-black/20 bg-white/70"
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
-                            <div className="grid gap-2">
+                            <div className="grid gap-3">
                                 <div className="flex items-center">
                                     <Label htmlFor="password">Senha</Label>
                                     {canResetPassword && (
@@ -66,31 +99,62 @@ export default function Login({
                                         </TextLink>
                                     )}
                                 </div>
-                                <Input
+                                <div className="flex gap-2">
+                                    {passwordDigits.map((digit, index) => (
+                                        <input
+                                            key={`password-${index}`}
+                                            ref={(el) =>
+                                                (passwordRefs.current[index] =
+                                                    el)
+                                            }
+                                            value={digit}
+                                            onChange={(event) =>
+                                                handleDigitChange(
+                                                    event.target.value,
+                                                    index,
+                                                )
+                                            }
+                                            onKeyDown={(event) =>
+                                                handleDigitKeyDown(
+                                                    event,
+                                                    index,
+                                                )
+                                            }
+                                            inputMode="numeric"
+                                            maxLength={1}
+                                            aria-label={`Dígito ${
+                                                index + 1
+                                            } da senha`}
+                                            className="h-11 w-full rounded-[8px] border border-black/20 bg-white/70 text-center text-sm"
+                                        />
+                                    ))}
+                                </div>
+                                <input
                                     id="password"
-                                    type="password"
+                                    type="hidden"
                                     name="password"
-                                    required
-                                    tabIndex={2}
-                                    autoComplete="current-password"
-                                    placeholder="Sua senha"
-                                    className="h-11 rounded-xl border-white/80 bg-white/70"
+                                    value={password}
                                 />
                                 <InputError message={errors.password} />
+                                <p className="text-xs text-[#6b5d87]">
+                                    Sua senha tem exatamente 8 dígitos
+                                    numéricos.
+                                </p>
                             </div>
 
-                            <div className="flex items-center space-x-3 text-sm text-[#4b3b70]">
+                            <div className="flex items-center space-x-2 text-sm text-[#4b3b70]">
                                 <Checkbox
                                     id="remember"
                                     name="remember"
                                     tabIndex={3}
+                                    className='w-[25px] h-[25px] cursor-pointer'
                                 />
                                 <Label htmlFor="remember">Lembrar de mim</Label>
                             </div>
 
                             <Button
                                 type="submit"
-                                className="mt-4 w-full rounded-full bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
+                                className="mt-4 w-full rounded-[8px] cursor-pointer bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90 text-[16px]"
                                 tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"

@@ -20,6 +20,8 @@ class Account extends Model
         'account_number',
         'account_digit',
         'balance_cents',
+        'travel_mode_enabled',
+        'travel_mode_started_at',
     ];
 
     /**
@@ -29,6 +31,8 @@ class Account extends Model
     {
         return [
             'balance_cents' => 'integer',
+            'travel_mode_enabled' => 'boolean',
+            'travel_mode_started_at' => 'datetime',
         ];
     }
 

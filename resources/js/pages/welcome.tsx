@@ -39,6 +39,24 @@ export default function Welcome({
                         <AppLogo />
                     </Link>
                     <nav className="flex items-center gap-3 text-sm">
+                        <Link
+                            href="/sobre"
+                            className="rounded-full px-3 py-2 text-[#4b3b70] transition hover:text-[#2a1f45] hover:-translate-y-0.5 active:scale-95"
+                        >
+                            Sobre
+                        </Link>
+                        <Link
+                            href="/faq"
+                            className="rounded-full px-3 py-2 text-[#4b3b70] transition hover:text-[#2a1f45] hover:-translate-y-0.5 active:scale-95"
+                        >
+                            FAQ
+                        </Link>
+                        <Link
+                            href="/contato"
+                            className="rounded-full px-3 py-2 text-[#4b3b70] transition hover:text-[#2a1f45] hover:-translate-y-0.5 active:scale-95"
+                        >
+                            Contato
+                        </Link>
                         {auth.user ? (
                             <Link
                                 href={dashboard()}

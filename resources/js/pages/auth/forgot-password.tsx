@@ -38,7 +38,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                                     autoComplete="off"
                                     autoFocus
                                     placeholder="email@exemplo.com"
-                                    className="h-11 rounded-xl border-white/80 bg-white/70"
+                                    className="h-11 rounded-[8px] border-black/20 bg-white/70"
                                 />
 
                                 <InputError message={errors.email} />
@@ -46,7 +46,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                             <div className="my-6 flex items-center justify-start">
                                 <Button
-                                    className="w-full rounded-full bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
+                                    className="w-full rounded-[8px] select-none bg-primary text-[14px] text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
                                     disabled={processing}
                                     data-test="email-password-reset-link-button"
                                 >
@@ -61,10 +61,11 @@ export default function ForgotPassword({ status }: { status?: string }) {
                 </Form>
 
                 <div className="space-x-1 text-center text-sm text-muted-foreground">
-                    <span>Ou volte para</span>
+                    <span>Tentar</span>
                     <TextLink href={login()} className="text-[#5b21b6]">
-                        entrar
+                        acessar
                     </TextLink>
+                    <span>sua conta novamente</span>
                 </div>
             </div>
         </AuthLayout>

@@ -40,6 +40,7 @@ class CardPageController extends Controller
 
         return Inertia::render('cards/index', [
             'cards' => $cards,
+            'travelModeEnabled' => $account->travel_mode_enabled,
         ]);
     }
 }

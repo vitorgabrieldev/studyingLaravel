@@ -85,6 +85,11 @@ class User extends Authenticatable
         return $this->hasMany(PixKey::class);
     }
 
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     public function getAvatarAttribute(?string $value): ?string
     {
         if (! $value) {

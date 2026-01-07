@@ -55,8 +55,17 @@ type RevealData = {
     exp_year: number;
 };
 
-export default function CardsIndex({ cards }: { cards: Card[] }) {
+export default function CardsIndex({
+    cards,
+    travelModeEnabled: initialTravelModeEnabled,
+}: {
+    cards: Card[];
+    travelModeEnabled: boolean;
+}) {
     const [cardList, setCardList] = useState<Card[]>(cards ?? []);
+    const [travelModeEnabled, setTravelModeEnabled] = useState(
+        initialTravelModeEnabled ?? false,
+    );
     const [creating, setCreating] = useState(false);
     const [newNickname, setNewNickname] = useState('');
     const [newLimit, setNewLimit] = useState('');
@@ -82,6 +91,21 @@ export default function CardsIndex({ cards }: { cards: Card[] }) {
         });
         const payload = await response.json();
         setCardList(payload.cards ?? []);
+    };
+
+    const toggleTravelMode = async (enabled: boolean) => {
+        setTravelModeEnabled(enabled);
+        await fetch('/api/travel-mode', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                ...getCsrfHeaders(),
+            },
+            body: JSON.stringify({ enabled }),
+        });
+        await refreshCards();
     };
 
     const updateCard = (updated: Card) => {
@@ -328,7 +352,7 @@ export default function CardsIndex({ cards }: { cards: Card[] }) {
                                 </p>
                                 <div className="mt-3 flex items-center justify-between">
                                     <span className="text-sm text-muted-foreground">
-                                        Aproximacao
+                                        Aproximação
                                     </span>
                                     <Switch
                                         checked={
@@ -347,6 +371,27 @@ export default function CardsIndex({ cards }: { cards: Card[] }) {
                             </div>
                         </div>
                     )}
+                </section>
+
+                <section className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-sm">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                                Modo viagem
+                            </p>
+                            <h2 className="text-lg font-semibold text-foreground">
+                                Compras internacionais liberadas
+                            </h2>
+                            <p className="text-sm text-muted-foreground">
+                                Ative antes de viagens para evitar bloqueios de
+                                segurança.
+                            </p>
+                        </div>
+                        <Switch
+                            checked={travelModeEnabled}
+                            onCheckedChange={toggleTravelMode}
+                        />
+                    </div>
                 </section>
 
                 <section className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-sm">

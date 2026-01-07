@@ -16,10 +16,24 @@ class TransactionController extends Controller
     {
         $account = $request->user()->account ?? $accountService->createForUser($request->user());
 
-        $transactions = Transaction::query()
+        $query = Transaction::query()
             ->where('account_id', $account->id)
-            ->latest()
-            ->paginate(12)
+            ->latest();
+
+        if ($request->filled('q')) {
+            $search = (string) $request->string('q');
+            $query->where(function ($builder) use ($search) {
+                $builder->where('description', 'like', "%{$search}%")
+                    ->orWhere('type', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('tag')) {
+            $tag = (string) $request->string('tag');
+            $query->whereJsonContains('tags', $tag);
+        }
+
+        $transactions = $query->paginate(12)
             ->withQueryString()
             ->through(fn (Transaction $transaction) => [
                 'id' => $transaction->id,
@@ -28,6 +42,7 @@ class TransactionController extends Controller
                 'amount_cents' => $transaction->amount_cents,
                 'description' => $transaction->description,
                 'created_at' => $transaction->created_at?->toISOString(),
+                'tags' => $transaction->tags ?? [],
             ]);
 
         return Inertia::render('transactions/index', [
@@ -38,6 +53,10 @@ class TransactionController extends Controller
                 'balance_cents' => $account->balance_cents,
             ],
             'transactions' => $transactions,
+            'filters' => [
+                'q' => $request->string('q')->toString(),
+                'tag' => $request->string('tag')->toString(),
+            ],
         ]);
     }
 
@@ -66,6 +85,7 @@ class TransactionController extends Controller
                 'description' => $transactionModel->description,
                 'created_at' => $transactionModel->created_at?->toISOString(),
                 'reference' => 'TX-' . str_pad((string) $transactionModel->id, 10, '0', STR_PAD_LEFT),
+                'tags' => $transactionModel->tags ?? [],
                 'meta' => [
                     'barcode' => $meta['barcode'] ?? null,
                     'beneficiary_name' => $meta['beneficiary_name'] ?? null,

@@ -27,10 +27,12 @@ import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
     ArrowRightLeft,
+    Bell,
     CreditCard,
     FileText,
     Home,
     KeyRound,
+    LineChart,
     Menu,
     ReceiptText,
     Send,
@@ -53,6 +55,16 @@ const mainNavItems: NavItem[] = [
         title: 'Cartões',
         href: '/cartoes',
         icon: CreditCard,
+    },
+    {
+        title: 'Notificações',
+        href: '/notificacoes',
+        icon: Bell,
+    },
+    {
+        title: 'Painel',
+        href: '/painel',
+        icon: LineChart,
     },
     {
         title: 'Transferências',

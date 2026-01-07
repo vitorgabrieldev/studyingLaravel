@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class BoletoService
 {
-    public function __construct(private readonly ReceiptService $receiptService)
-    {
+    public function __construct(
+        private readonly ReceiptService $receiptService,
+        private readonly NotificationService $notificationService
+    ) {
     }
 
     public function pay(Account $account, string $barcode, string $beneficiary, int $amountCents): BoletoPayment
@@ -48,6 +50,13 @@ class BoletoService
             ]);
 
             $this->receiptService->generate($transaction, $lockedAccount);
+            $this->notificationService->notify(
+                $lockedAccount->user,
+                'Boleto pago',
+                'Seu pagamento foi confirmado.',
+                'debit',
+                ['transaction_id' => $transaction->id],
+            );
 
             return $payment;
         });

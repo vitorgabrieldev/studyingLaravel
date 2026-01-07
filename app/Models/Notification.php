@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Transaction extends Model
+class Notification extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,12 @@ class Transaction extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'account_id',
+        'user_id',
+        'title',
+        'body',
         'type',
-        'direction',
-        'amount_cents',
-        'description',
         'meta',
-        'receipt_path',
-        'tags',
+        'read_at',
     ];
 
     /**
@@ -30,14 +28,13 @@ class Transaction extends Model
     protected function casts(): array
     {
         return [
-            'amount_cents' => 'integer',
             'meta' => 'array',
-            'tags' => 'array',
+            'read_at' => 'datetime',
         ];
     }
 
-    public function account(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Account::class);
+        return $this->belongsTo(User::class);
     }
 }

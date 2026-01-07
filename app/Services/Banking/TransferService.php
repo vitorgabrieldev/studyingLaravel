@@ -12,8 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class TransferService
 {
-    public function __construct(private readonly ReceiptService $receiptService)
-    {
+    public function __construct(
+        private readonly ReceiptService $receiptService,
+        private readonly NotificationService $notificationService
+    ) {
     }
 
     /**
@@ -99,6 +101,21 @@ class TransferService
 
             $this->receiptService->generate($debitTransaction, $fromAccount);
             $this->receiptService->generate($creditTransaction, $toAccount);
+
+            $this->notificationService->notify(
+                $fromAccount->user,
+                'Transferência enviada',
+                $description ?? 'Sua transferência foi enviada com sucesso.',
+                'debit',
+                ['transaction_id' => $debitTransaction->id],
+            );
+            $this->notificationService->notify(
+                $toAccount->user,
+                'Transferência recebida',
+                $description ?? 'Você recebeu uma transferência.',
+                'credit',
+                ['transaction_id' => $creditTransaction->id],
+            );
 
             return $transfer;
         });

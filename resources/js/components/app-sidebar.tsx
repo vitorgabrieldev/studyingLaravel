@@ -14,10 +14,12 @@ import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import {
     ArrowRightLeft,
+    Bell,
     FileText,
     Home,
     KeyRound,
     CreditCard,
+    LineChart,
     ReceiptText,
     Send,
     Settings,
@@ -39,6 +41,16 @@ const mainNavItems: NavItem[] = [
         title: 'Cartões',
         href: '/cartoes',
         icon: CreditCard,
+    },
+    {
+        title: 'Notificações',
+        href: '/notificacoes',
+        icon: Bell,
+    },
+    {
+        title: 'Painel',
+        href: '/painel',
+        icon: LineChart,
     },
     {
         title: 'Transferências',

@@ -1,6 +1,7 @@
 import AppLogo from '@/components/app-logo';
 import { home } from '@/routes';
 import { Link } from '@inertiajs/react';
+import { Bot, CreditCard, ShieldCheck, Sparkles, Zap } from 'lucide-react';
 import { type PropsWithChildren } from 'react';
 
 interface AuthLayoutProps {
@@ -42,22 +43,48 @@ export default function AuthSimpleLayout({
 
                     <div className="grid max-w-lg grid-cols-1 gap-4 sm:grid-cols-2">
                         {[
-                            'Pix instantâneo e gratuito',
-                            'Cartões virtuais e controle total',
-                            'Boletos e transferências em segundos',
-                            'Segurança multicamadas',
+                            {
+                                title: 'Pix instantâneo',
+                                description: 'Envios e recebimentos em segundos.',
+                                icon: Zap,
+                                tone: 'text-[#b91c3a]',
+                            },
+                            {
+                                title: 'Cartões inteligentes',
+                                description: 'Cartões virtuais com limites por uso.',
+                                icon: CreditCard,
+                                tone: 'text-[#6d28d9]',
+                            },
+                            {
+                                title: 'Pagamentos fluidos',
+                                description: 'Boletos e transferências sem fricção.',
+                                icon: Sparkles,
+                                tone: 'text-[#ef4444]',
+                            },
+                            {
+                                title: 'Segurança com IA',
+                                description: 'Proteções multicamadas e alertas inteligentes.',
+                                icon: Bot,
+                                tone: 'text-[#b91c3a]',
+                            },
                         ].map((item) => (
                             <div
-                                key={item}
-                                className="rounded-2xl border border-white/50 bg-white/60 p-4 text-sm text-[#2a1f45] shadow-sm backdrop-blur"
+                                key={item.title}
+                                className="group rounded-2xl border border-white/50 bg-white/60 p-4 text-sm text-[#2a1f45] shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-lg active:scale-95"
                             >
-                                {item}
+                                <item.icon className={`h-5 w-5 ${item.tone}`} />
+                                <p className="mt-3 text-sm font-semibold">
+                                    {item.title}
+                                </p>
+                                <p className="mt-1 text-xs text-[#6b5d87]">
+                                    {item.description}
+                                </p>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                <div className="w-full max-w-md">
+                <div className="w-full max-w-[43%]">
                     <div className="rounded-3xl border border-white/60 bg-white/80 p-8 shadow-xl backdrop-blur">
                         <div className="space-y-2">
                             <h2 className="text-2xl font-semibold text-[#1b1230]">
