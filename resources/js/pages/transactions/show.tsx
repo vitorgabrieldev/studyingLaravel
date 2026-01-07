@@ -3,8 +3,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { formatCurrency } from '@/lib/utils';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { Copy, Download, Share2, ChevronLeft} from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { ChevronLeft, Copy, Download, Share2 } from 'lucide-react';
+import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -55,28 +55,15 @@ export default function TransactionShow({
 }) {
     const [copied, setCopied] = useState(false);
 
-    useEffect(() => {
-        if (typeof window === 'undefined') {
-            return;
-        }
-
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('print') === '1') {
-            window.print();
-        }
-    }, []);
-
     const createdAt = transaction.created_at
         ? new Date(transaction.created_at).toLocaleString('pt-BR')
         : '--';
 
     const accountLabel = `${account.branch_number} / ${account.account_number}-${account.account_digit}`;
     const counterpartyLabel = transaction.meta.counterparty
-        ? `${transaction.meta.counterparty.name ?? '---'} · ${
-              transaction.meta.counterparty.branch_number ?? '---'
-          }/${transaction.meta.counterparty.account_number ?? '---'}-${
-              transaction.meta.counterparty.account_digit ?? '--'
-          }`
+        ? `${transaction.meta.counterparty.name ?? '---'} · ${transaction.meta.counterparty.branch_number ?? '---'
+        }/${transaction.meta.counterparty.account_number ?? '---'}-${transaction.meta.counterparty.account_digit ?? '--'
+        }`
         : null;
 
     const handleShare = async () => {
@@ -122,22 +109,16 @@ export default function TransactionShow({
                     <div className="flex flex-wrap gap-2">
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        window.open(
-                                            `${window.location.pathname}?print=1`,
-                                            '_blank',
-                                        )
-                                    }
+                                <a
+                                    href={`/transacoes/${transaction.id}/comprovante`}
                                     className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/70 bg-white px-4 py-2 text-xs font-semibold text-[#b91c3a] transition hover:-translate-y-0.5 hover:bg-[#fde2d8] active:scale-95"
                                 >
                                     <Download className="h-4 w-4" />
                                     Baixar PDF
-                                </button>
+                                </a>
                             </TooltipTrigger>
                             <TooltipContent>
-                                Gera o PDF via impressao.
+                                Baixa o comprovante gerado pelo sistema.
                             </TooltipContent>
                         </Tooltip>
                         <Tooltip>
@@ -197,10 +178,15 @@ export default function TransactionShow({
                                 {createdAt}
                             </p>
                         </div>
-                        <div className="rounded-2xl border border-[#f7c7b8] bg-[#fde2d8] px-4 py-3 text-sm font-semibold text-[#b91c3a]">
+                        <div
+                            className={`rounded-2xl border px-4 py-3 text-sm font-semibold ${transaction.direction === 'debit'
+                                    ? 'border-red-300 bg-red-100 text-red-700'
+                                    : 'border-green-300 bg-green-100 text-green-700'
+                                }`}
+                        >
                             {transaction.direction === 'debit'
-                                ? 'Saida'
-                                : 'Entrada'}
+                                ? 'Valor enviado'
+                                : 'Valor recebido'}
                         </div>
                     </div>
 

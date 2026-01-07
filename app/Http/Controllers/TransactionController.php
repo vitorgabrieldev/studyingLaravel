@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Services\Banking\AccountService;
+use App\Services\Banking\ReceiptService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -72,5 +74,29 @@ class TransactionController extends Controller
                 ],
             ],
         ]);
+    }
+
+    public function download(
+        Request $request,
+        AccountService $accountService,
+        ReceiptService $receiptService,
+        int $transaction
+    ) {
+        $account = $request->user()->account ?? $accountService->createForUser($request->user());
+
+        $transactionModel = Transaction::query()
+            ->where('account_id', $account->id)
+            ->whereKey($transaction)
+            ->firstOrFail();
+
+        if (! $transactionModel->receipt_path) {
+            $receiptService->generate($transactionModel, $account);
+        }
+
+        $path = $transactionModel->receipt_path ?? $receiptService->buildPath($transactionModel);
+
+        abort_if(! Storage::disk('public')->exists($path), 404);
+
+        return Storage::disk('public')->download($path, "comprovante-{$transactionModel->id}.pdf");
     }
 }

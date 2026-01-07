@@ -20,6 +20,7 @@ class Transaction extends Model
         'amount_cents',
         'description',
         'meta',
+        'receipt_path',
     ];
 
     /**

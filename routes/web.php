@@ -37,6 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('transacoes/{transaction}', [TransactionController::class, 'show'])
         ->name('transactions.show');
+
+    Route::get('transacoes/{transaction}/comprovante', [TransactionController::class, 'download'])
+        ->name('transactions.receipt');
 });
 
 require __DIR__.'/settings.php';

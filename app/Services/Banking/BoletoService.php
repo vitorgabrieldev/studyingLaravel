@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class BoletoService
 {
+    public function __construct(private readonly ReceiptService $receiptService)
+    {
+    }
+
     public function pay(Account $account, string $barcode, string $beneficiary, int $amountCents): BoletoPayment
     {
         return DB::transaction(function () use ($account, $barcode, $beneficiary, $amountCents) {
@@ -30,7 +34,7 @@ class BoletoService
                 'paid_at' => now(),
             ]);
 
-            Transaction::create([
+            $transaction = Transaction::create([
                 'account_id' => $lockedAccount->id,
                 'type' => 'boleto',
                 'direction' => 'debit',
@@ -42,6 +46,8 @@ class BoletoService
                     'boleto_payment_id' => $payment->id,
                 ],
             ]);
+
+            $this->receiptService->generate($transaction, $lockedAccount);
 
             return $payment;
         });

@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class TransferService
 {
+    public function __construct(private readonly ReceiptService $receiptService)
+    {
+    }
+
     /**
      * @param  array<string, mixed>  $meta
      */
@@ -51,7 +55,7 @@ class TransferService
                 'description' => $description,
             ]);
 
-            Transaction::create([
+            $debitTransaction = Transaction::create([
                 'account_id' => $fromAccount->id,
                 'type' => $channel,
                 'direction' => 'debit',
@@ -61,6 +65,9 @@ class TransferService
                     'transfer_id' => $transfer->id,
                     'counterparty' => [
                         'name' => $toAccount->user->name,
+                        'cpf' => $toAccount->user->cpf,
+                        'institution' => config('app.name'),
+                        'account_type' => 'Conta corrente',
                         'branch_number' => $toAccount->branch_number,
                         'account_number' => $toAccount->account_number,
                         'account_digit' => $toAccount->account_digit,
@@ -69,7 +76,7 @@ class TransferService
                 ],
             ]);
 
-            Transaction::create([
+            $creditTransaction = Transaction::create([
                 'account_id' => $toAccount->id,
                 'type' => $channel,
                 'direction' => 'credit',
@@ -79,6 +86,9 @@ class TransferService
                     'transfer_id' => $transfer->id,
                     'counterparty' => [
                         'name' => $fromAccount->user->name,
+                        'cpf' => $fromAccount->user->cpf,
+                        'institution' => config('app.name'),
+                        'account_type' => 'Conta corrente',
                         'branch_number' => $fromAccount->branch_number,
                         'account_number' => $fromAccount->account_number,
                         'account_digit' => $fromAccount->account_digit,
@@ -86,6 +96,9 @@ class TransferService
                     ...$meta,
                 ],
             ]);
+
+            $this->receiptService->generate($debitTransaction, $fromAccount);
+            $this->receiptService->generate($creditTransaction, $toAccount);
 
             return $transfer;
         });
