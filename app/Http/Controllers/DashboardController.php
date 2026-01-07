@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Services\Banking\AccountService;
+use App\Services\Banking\CardService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function show(Request $request, AccountService $accountService): Response
+    public function show(Request $request, AccountService $accountService, CardService $cardService): Response
     {
         $account = $request->user()->account ?? $accountService->createForUser($request->user());
+        $cardSnapshot = $cardService->invoiceSnapshot($account);
 
         $transactions = Transaction::query()
             ->where('account_id', $account->id)
@@ -37,6 +39,7 @@ class DashboardController extends Controller
                     'account_digit' => $account->account_digit,
                     'balance_cents' => $account->balance_cents,
                 ],
+                'card' => $cardSnapshot,
                 'transactions' => $transactions,
             ],
         ]);

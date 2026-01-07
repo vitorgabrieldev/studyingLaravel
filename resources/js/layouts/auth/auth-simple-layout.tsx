@@ -35,17 +35,17 @@ export default function AuthSimpleLayout({
                         </h1>
                         <p className="max-w-lg text-base text-[#4b3b70]">
                             Gerencie saldo, Pix, boletos e transferências em um
-                            unico lugar, com a mesma simplicidade que voce
+                            único lugar, com a mesma simplicidade que você
                             espera de um app moderno.
                         </p>
                     </div>
 
                     <div className="grid max-w-lg grid-cols-1 gap-4 sm:grid-cols-2">
                         {[
-                            'Pix instantaneo e gratuito',
-                            'Cartoes virtuais e controle total',
+                            'Pix instantâneo e gratuito',
+                            'Cartões virtuais e controle total',
                             'Boletos e transferências em segundos',
-                            'Seguranca multicamadas',
+                            'Segurança multicamadas',
                         ].map((item) => (
                             <div
                                 key={item}

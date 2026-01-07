@@ -15,7 +15,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
     return (
         <AuthLayout
             title="Recuperar senha"
-            description="Informe seu email para receber o link de recuperacao."
+            description="Informe seu email para receber o link de recuperação."
         >
             <Head title="Recuperar senha" />
 
@@ -53,7 +53,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                                     {processing && (
                                         <LoaderCircle className="h-4 w-4 animate-spin" />
                                     )}
-                                    Enviar link de recuperacao
+                                    Enviar link de recuperação
                                 </Button>
                             </div>
                         </>

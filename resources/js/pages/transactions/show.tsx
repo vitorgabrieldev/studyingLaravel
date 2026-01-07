@@ -159,7 +159,7 @@ export default function TransactionShow({
                                 </button>
                             </TooltipTrigger>
                             <TooltipContent>
-                                Copia a referencia para compartilhar.
+                                Copia a referência para compartilhar.
                             </TooltipContent>
                         </Tooltip>
                     </div>
@@ -199,7 +199,7 @@ export default function TransactionShow({
                                 {formatCurrency(transaction.amount_cents)}
                             </p>
                             <p className="mt-1 text-xs text-muted-foreground">
-                                Referencia {transaction.reference}
+                                Referência {transaction.reference}
                             </p>
                         </div>
 
@@ -231,7 +231,7 @@ export default function TransactionShow({
                         {transaction.meta.beneficiary_name && (
                             <div className="rounded-2xl border border-white/70 bg-white p-4">
                                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                                    beneficiario
+                                    beneficiário
                                 </p>
                                 <p className="mt-2 text-sm font-semibold text-foreground">
                                     {transaction.meta.beneficiary_name}
@@ -242,7 +242,7 @@ export default function TransactionShow({
                         {transaction.meta.barcode && (
                             <div className="rounded-2xl border border-white/70 bg-white p-4 md:col-span-2">
                                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                                    codigo de barras
+                                    código de barras
                                 </p>
                                 <p className="mt-2 text-sm font-semibold text-foreground">
                                     {transaction.meta.barcode}

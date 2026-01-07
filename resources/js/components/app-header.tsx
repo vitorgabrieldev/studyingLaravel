@@ -27,6 +27,7 @@ import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
     ArrowRightLeft,
+    CreditCard,
     FileText,
     Home,
     KeyRound,
@@ -39,7 +40,7 @@ import AppLogoIcon from './app-logo-icon';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Inicio',
+        title: 'Início',
         href: '/dashboard',
         icon: Home,
     },
@@ -47,6 +48,11 @@ const mainNavItems: NavItem[] = [
         title: 'Pix',
         href: '/pix',
         icon: Send,
+    },
+    {
+        title: 'Cartões',
+        href: '/cartoes',
+        icon: CreditCard,
     },
     {
         title: 'Transferências',
@@ -130,7 +136,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
 
                                         <div className="flex flex-col space-y-4">
                                             <div className="rounded-2xl border border-white/70 bg-white/80 p-4 text-xs text-[#6b5d87]">
-                                                Voce esta em modo mobile. Use o
+                                                Você está em modo mobile. Use o
                                                 menu para navegar.
                                             </div>
                                         </div>

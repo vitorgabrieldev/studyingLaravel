@@ -146,7 +146,7 @@ export default function PixKeys() {
                             Registrar chave
                         </h1>
                         <p className="text-sm text-[#6b5d87]">
-                            Organize suas chaves Pix para receber rapido.
+                            Organize suas chaves Pix para receber rápido.
                         </p>
                     </div>
 
@@ -193,7 +193,7 @@ export default function PixKeys() {
                     <button
                         type="submit"
                         disabled={submitting}
-                        className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95 disabled:opacity-70"
+                        className="flex w-full items-center justify-center gap-2 select-none rounded-[12px] bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95 disabled:opacity-70"
                     >
                         <Plus className="h-4 w-4" />
                         {submitting ? 'Salvando...' : 'Cadastrar chave'}

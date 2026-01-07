@@ -118,7 +118,7 @@ export default function Register() {
 
                             <div className="space-y-3">
                                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#6d28d9]">
-                                    Endereco
+                                    Endereço
                                 </p>
                                 <div className="grid gap-3">
                                     <div className="grid gap-3 sm:grid-cols-3">
@@ -140,7 +140,7 @@ export default function Register() {
                                         </div>
                                         <div className="grid gap-2">
                                             <Label htmlFor="address_number">
-                                                Numero
+                                                Número
                                             </Label>
                                             <Input
                                                 id="address_number"
@@ -236,7 +236,7 @@ export default function Register() {
 
                             <div className="space-y-3">
                                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#6d28d9]">
-                                    Seguranca
+                                    Segurança
                                 </p>
                                 <div className="grid gap-3">
                                     <div className="grid gap-2">

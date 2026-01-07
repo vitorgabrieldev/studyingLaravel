@@ -77,7 +77,7 @@ export default function PixSend() {
             const payload = await response.json();
 
             if (!response.ok) {
-                throw new Error(payload.message ?? 'Nao foi possivel enviar.');
+                throw new Error(payload.message ?? 'Não foi possível enviar.');
             }
 
             setSuccess(payload.message ?? 'Pix enviado.');
@@ -103,20 +103,20 @@ export default function PixSend() {
                             Enviar Pix
                         </h1>
                         <p className="text-sm text-[#6b5d87]">
-                            Transferências instantaneas para qualquer chave.
+                            Transferências instantâneas para qualquer chave.
                         </p>
                     </div>
 
                     <div className="grid gap-4">
                         <label className="grid gap-2 text-sm font-medium text-[#3c2b5b]">
-                            Chave Pix do destinatario
+                            Chave Pix do destinatário
                             <input
                                 value={key}
                                 onChange={(event) =>
                                     setKey(event.target.value)
                                 }
                                 className="h-11 rounded-xl border border-black/10 bg-white/70 px-3"
-                                placeholder="Email, CPF, telefone ou chave aleatoria"
+                                placeholder="Email, CPF, telefone ou chave aleatória"
                             />
                         </label>
 
@@ -134,7 +134,7 @@ export default function PixSend() {
                             <span className="text-xs text-[#7b6a99]">
                                 {amount
                                     ? formatCurrency(toCents(amount))
-                                    : 'Saldo sera atualizado instantaneamente.'}
+                                : 'Saldo será atualizado instantaneamente.'}
                             </span>
                         </label>
 
@@ -225,7 +225,7 @@ export default function PixSend() {
                         <div className="flex items-center gap-3">
                             <ShieldCheck className="h-5 w-5 text-[#5b21b6]" />
                             <p className="text-sm font-semibold">
-                                Seguranca em camadas
+                                Segurança em camadas
                             </p>
                         </div>
                         <p className="mt-2 text-xs text-[#6b5d87]">
@@ -234,7 +234,7 @@ export default function PixSend() {
                         </p>
                         <div className="mt-4 flex items-center gap-2 text-xs text-[#5b21b6]">
                             <CheckCircle2 className="h-4 w-4" />
-                            Protecao antifraude ativa
+                            Proteção antifraude ativa
                         </div>
                     </div>
                 </div>

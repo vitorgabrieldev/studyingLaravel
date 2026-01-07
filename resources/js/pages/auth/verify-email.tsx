@@ -29,7 +29,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
                             className="w-full rounded-full bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
                         >
                             {processing && <Spinner />}
-                            Reenviar email de verificacao
+                            Reenviar email de verificação
                         </Button>
 
                         <TextLink

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CardPageController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,6 +24,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pix/keys', function () {
         return Inertia::render('pix/keys');
     })->name('pix.keys');
+
+    Route::get('cartoes', [CardPageController::class, 'index'])
+        ->name('cards.index');
 
     Route::get('transferencias', function () {
         return Inertia::render('transfers');

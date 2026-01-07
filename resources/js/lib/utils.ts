@@ -25,7 +25,7 @@ export function formatCurrency(valueCents: number) {
 }
 
 export function toCents(value: string) {
-    const normalized = value.replace(',', '.');
+    const normalized = value.replace(/[^\d,.-]/g, '').replace(',', '.');
     const parsed = Number.parseFloat(normalized);
 
     if (Number.isNaN(parsed)) {

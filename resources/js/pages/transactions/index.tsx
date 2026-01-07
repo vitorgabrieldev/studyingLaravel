@@ -72,7 +72,7 @@ export default function TransactionsIndex({
                     <div className="flex items-center justify-between">
                         <div>
                             <h2 className="text-lg font-semibold text-foreground">
-                                Ultimas transações
+                                Últimas transações
                             </h2>
                             <p className="text-sm text-muted-foreground">
                                 Veja os detalhes e gere comprovantes.
@@ -83,7 +83,7 @@ export default function TransactionsIndex({
                     <div className="mt-6 space-y-4">
                         {transactions.data.length === 0 && (
                             <p className="text-sm text-muted-foreground">
-                                Nenhuma transacao registrada ainda.
+                                Nenhuma transação registrada ainda.
                             </p>
                         )}
 

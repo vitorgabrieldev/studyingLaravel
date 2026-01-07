@@ -160,10 +160,10 @@
             <div class="section">
                 <div class="label">Detalhes adicionais</div>
                 @if (!empty($meta['beneficiary_name']))
-                    <div class="value">Beneficiario: {{ $meta['beneficiary_name'] }}</div>
+                    <div class="value">Beneficiário: {{ $meta['beneficiary_name'] }}</div>
                 @endif
                 @if (!empty($meta['barcode']))
-                    <div class="small">Codigo de barras {{ $meta['barcode'] }}</div>
+                    <div class="small">Código de barras {{ $meta['barcode'] }}</div>
                 @endif
             </div>
         @endif

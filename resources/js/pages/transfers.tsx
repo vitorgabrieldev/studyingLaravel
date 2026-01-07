@@ -28,19 +28,19 @@ export default function Transfers() {
         const amountCents = toCents(amount);
 
         if (!destination.trim()) {
-            setError('Informe o destinatario.');
+            setError('Informe o destinatário.');
             setSubmitting(false);
             return;
         }
 
         if (destinationType === 'account' && !accountDigit.trim()) {
-            setError('Informe o digito da conta.');
+            setError('Informe o dígito da conta.');
             setSubmitting(false);
             return;
         }
 
         if (amountCents <= 0) {
-            setError('Informe um valor valido.');
+            setError('Informe um valor válido.');
             setSubmitting(false);
             return;
         }
@@ -67,10 +67,10 @@ export default function Transfers() {
             const payload = await response.json();
 
             if (!response.ok) {
-                throw new Error(payload.message ?? 'Erro na transferencia.');
+                throw new Error(payload.message ?? 'Erro na transferência.');
             }
 
-            setSuccess(payload.message ?? 'Transferencia realizada.');
+            setSuccess(payload.message ?? 'Transferência realizada.');
             setAmount('');
             setDescription('');
         } catch (err) {
@@ -82,7 +82,7 @@ export default function Transfers() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Transferencias" />
+            <Head title="Transferências" />
             <div className="grid gap-6 p-6 md:grid-cols-[1.2fr_0.8fr] md:p-8">
                 <form
                     onSubmit={handleSubmit}
@@ -106,15 +106,15 @@ export default function Transfers() {
                             }
                             className="h-11 rounded-xl border border-black/10 bg-white/70 px-3 text-sm"
                         >
-                            <option value="account">Conta bancaria</option>
-                            <option value="email">Email do usuario</option>
+                            <option value="account">Conta bancária</option>
+                            <option value="email">Email do usuário</option>
                         </select>
                     </label>
 
                     {destinationType === 'account' ? (
                         <div className="grid gap-3 sm:grid-cols-2">
                             <label className="grid gap-2 text-sm font-medium text-[#3c2b5b]">
-                                Numero da conta
+                                Número da conta
                                 <input
                                     value={destination}
                                     onChange={(event) =>
@@ -125,7 +125,7 @@ export default function Transfers() {
                                 />
                             </label>
                             <label className="grid gap-2 text-sm font-medium text-[#3c2b5b]">
-                                Digito
+                                Dígito
                                 <input
                                     value={accountDigit}
                                     onChange={(event) =>
@@ -138,7 +138,7 @@ export default function Transfers() {
                         </div>
                     ) : (
                         <label className="grid gap-2 text-sm font-medium text-[#3c2b5b]">
-                            Email do destinatario
+                            Email do destinatário
                             <input
                                 value={destination}
                                 onChange={(event) =>
@@ -162,7 +162,7 @@ export default function Transfers() {
                         <span className="text-xs text-[#7b6a99]">
                             {amount
                                 ? formatCurrency(toCents(amount))
-                                : 'Transferências para contas Fintech.laravel sao instantaneas.'}
+                                : 'Transferências para contas Fintech.laravel são instantâneas.'}
                         </span>
                     </label>
 
@@ -192,9 +192,9 @@ export default function Transfers() {
                     <button
                         type="submit"
                         disabled={submitting}
-                        className="w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95 disabled:opacity-70"
+                        className="w-full rounded-[12px] select-none bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95 disabled:opacity-70"
                     >
-                        {submitting ? 'Transferindo...' : 'Confirmar transferencia'}
+                        {submitting ? 'Transferindo...' : 'Confirmar transferência'}
                     </button>
                 </form>
 
@@ -204,10 +204,10 @@ export default function Transfers() {
                             <ArrowRightLeft className="h-5 w-5 text-[#5b21b6]" />
                             <div>
                                 <p className="text-sm font-semibold text-[#2a1f45]">
-                                    Transferencias internas
+                                    Transferências internas
                                 </p>
                                 <p className="text-xs text-[#6b5d87]">
-                                    Para contas Fintech.laravel, o credito e imediato.
+                                    Para contas Fintech.laravel, o crédito é imediato.
                                 </p>
                             </div>
                         </div>
@@ -221,7 +221,7 @@ export default function Transfers() {
                                 </p>
                                 <p className="text-xs text-[#6b5d87]">
                                     Use o email cadastrado para identificar o
-                                    destinatario.
+                                    destinatário.
                                 </p>
                             </div>
                         </div>
@@ -231,10 +231,10 @@ export default function Transfers() {
                             <Shield className="h-5 w-5 text-[#5b21b6]" />
                             <div>
                                 <p className="text-sm font-semibold">
-                                    Seguranca Fintech.laravel
+                                    Segurança Fintech.laravel
                                 </p>
                                 <p className="text-xs text-[#6b5d87]">
-                                    Cada transferencia passa por monitoramento
+                                    Cada transferência passa por monitoramento
                                     inteligente.
                                 </p>
                             </div>

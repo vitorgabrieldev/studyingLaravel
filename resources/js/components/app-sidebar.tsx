@@ -17,6 +17,7 @@ import {
     FileText,
     Home,
     KeyRound,
+    CreditCard,
     ReceiptText,
     Send,
     Settings,
@@ -25,7 +26,7 @@ import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Inicio',
+        title: 'Início',
         href: '/dashboard',
         icon: Home,
     },
@@ -33,6 +34,11 @@ const mainNavItems: NavItem[] = [
         title: 'Pix',
         href: '/pix',
         icon: Send,
+    },
+    {
+        title: 'Cartões',
+        href: '/cartoes',
+        icon: CreditCard,
     },
     {
         title: 'Transferências',
@@ -58,7 +64,7 @@ const mainNavItems: NavItem[] = [
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Configuracoes',
+        title: 'Configurações',
         href: '/settings/profile',
         icon: Settings,
     },

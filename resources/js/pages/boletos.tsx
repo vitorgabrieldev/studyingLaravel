@@ -26,19 +26,19 @@ export default function Boletos() {
         const amountCents = toCents(amount);
 
         if (!barcode.trim()) {
-            setError('Informe o codigo de barras.');
+            setError('Informe o código de barras.');
             setSubmitting(false);
             return;
         }
 
         if (!beneficiary.trim()) {
-            setError('Informe o beneficiario.');
+            setError('Informe o beneficiário.');
             setSubmitting(false);
             return;
         }
 
         if (amountCents <= 0) {
-            setError('Informe um valor valido.');
+            setError('Informe um valor válido.');
             setSubmitting(false);
             return;
         }
@@ -89,12 +89,12 @@ export default function Boletos() {
                             Pagar boleto
                         </h1>
                         <p className="text-sm text-[#6b5d87]">
-                            Digite o codigo de barras e confirme o pagamento.
+                            Digite o código de barras e confirme o pagamento.
                         </p>
                     </div>
 
                     <label className="grid gap-2 text-sm font-medium text-[#3c2b5b]">
-                        Codigo de barras
+                        Código de barras
                         <input
                             value={barcode}
                             onChange={(event) => setBarcode(event.target.value)}
@@ -104,7 +104,7 @@ export default function Boletos() {
                     </label>
 
                     <label className="grid gap-2 text-sm font-medium text-[#3c2b5b]">
-                        Beneficiario
+                        Beneficiário
                         <input
                             value={beneficiary}
                             onChange={(event) =>
@@ -127,7 +127,7 @@ export default function Boletos() {
                         <span className="text-xs text-[#7b6a99]">
                             {amount
                                 ? formatCurrency(toCents(amount))
-                                : 'O pagamento sera concluido instantaneamente.'}
+                                : 'O pagamento será concluído instantaneamente.'}
                         </span>
                     </label>
 
@@ -145,7 +145,7 @@ export default function Boletos() {
                     <button
                         type="submit"
                         disabled={submitting}
-                        className="w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95 disabled:opacity-70"
+                        className="w-full rounded-[12px] select-none bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95 disabled:opacity-70"
                     >
                         {submitting ? 'Processando...' : 'Pagar boleto'}
                     </button>
@@ -160,7 +160,7 @@ export default function Boletos() {
                                     Leitura inteligente
                                 </p>
                                 <p className="text-xs text-[#6b5d87]">
-                                    Confirme sempre os dados do beneficiario.
+                                    Confirme sempre os dados do beneficiário.
                                 </p>
                             </div>
                         </div>
@@ -170,10 +170,10 @@ export default function Boletos() {
                             <FileText className="h-5 w-5 text-[#5b21b6]" />
                             <div>
                                 <p className="text-sm font-semibold text-[#2a1f45]">
-                                    Registro automatico
+                                    Registro automático
                                 </p>
                                 <p className="text-xs text-[#6b5d87]">
-                                    Pagamentos ficam salvos no seu historico.
+                                    Pagamentos ficam salvos no seu histórico.
                                 </p>
                             </div>
                         </div>
@@ -183,10 +183,10 @@ export default function Boletos() {
                             <ShieldCheck className="h-5 w-5 text-[#5b21b6]" />
                             <div>
                                 <p className="text-sm font-semibold">
-                                    Confirmacao segura
+                                    Confirmação segura
                                 </p>
                                 <p className="text-xs text-[#6b5d87]">
-                                    Protecao ativa contra boletos suspeitos.
+                                    Proteção ativa contra boletos suspeitos.
                                 </p>
                             </div>
                         </div>

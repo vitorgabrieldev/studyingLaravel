@@ -74,12 +74,12 @@ export default function Welcome({
                                 Fintech.laravel
                             </div>
                             <h1 className="text-4xl font-semibold leading-tight text-[#1b1230] md:text-5xl animate-fade-up">
-                                Seu banco digital com inteligencia e atitude.
+                                Seu banco digital com inteligência e atitude.
                             </h1>
                             <p className="max-w-xl text-base text-[#4b3b70] animate-fade-up">
-                                Controle saldo, Pix, boletos e transferencias
+                                Controle saldo, Pix, boletos e transferências
                                 com uma interface moderna, animada e direta ao
-                                ponto. Tudo em um unico app.
+                                ponto. Tudo em um único app.
                             </p>
                             <div className="flex flex-wrap gap-3 animate-fade-up">
                                 {canRegister && (
@@ -95,7 +95,7 @@ export default function Welcome({
                                     href={login()}
                                     className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-5 py-3 text-sm font-semibold text-[#2a1f45] transition hover:-translate-y-0.5 hover:shadow-md active:scale-95"
                                 >
-                                    Ja tenho conta
+                                    Já tenho conta
                                 </Link>
                             </div>
 
@@ -104,13 +104,13 @@ export default function Welcome({
                             <div className="grid gap-4 sm:grid-cols-2">
                                 {[
                                     {
-                                        title: 'Pix instantaneo',
+                                        title: 'Pix instantâneo',
                                         description:
                                             'Envios e recebimentos em segundos.',
                                         icon: Wallet,
                                     },
                                     {
-                                        title: 'Gestao inteligente',
+                                        title: 'Gestão inteligente',
                                         description:
                                             'Seu dinheiro organizado em um lugar.',
                                         icon: Sparkles,
@@ -118,13 +118,13 @@ export default function Welcome({
                                     {
                                         title: 'Boletos e contas',
                                         description:
-                                            'Pague com seguranca e rapidez.',
+                                            'Pague com segurança e rapidez.',
                                         icon: ShieldCheck,
                                     },
                                     {
                                         title: 'Transferências internas',
                                         description:
-                                            'Para usuarios Fintech.laravel sem tarifas.',
+                                            'Para usuários Fintech.laravel sem tarifas.',
                                         icon: ArrowRight,
                                     },
                                 ].map((item, index) => (
@@ -160,7 +160,7 @@ export default function Welcome({
                                 </div>
                                 <div className="mt-10">
                                     <p className="text-sm text-[#6b5d87]">
-                                        Saldo disponivel
+                                        Saldo disponível
                                     </p>
                                     <p className="mt-2 text-3xl font-semibold text-[#1b1230]">
                                         R$ 12.450,90
@@ -168,7 +168,7 @@ export default function Welcome({
                                 </div>
                                 <div className="mt-10 grid grid-cols-2 gap-3 text-xs text-[#6b5d87]">
                                     <div className="rounded-2xl border border-white/70 bg-white/70 p-3">
-                                        Pix rapido
+                                        Pix rápido
                                         <p className="mt-2 text-sm font-semibold text-[#2a1f45]">
                                             R$ 1.250,00
                                         </p>
@@ -195,12 +195,12 @@ export default function Welcome({
                                 icon: Users,
                             },
                             {
-                                label: 'Transacoes por dia',
+                                label: 'Transações por dia',
                                 value: '1.2M',
                                 icon: LineChart,
                             },
                             {
-                                label: 'Score de seguranca',
+                                label: 'Score de segurança',
                                 value: '99.9%',
                                 icon: BadgeCheck,
                             },
@@ -227,19 +227,19 @@ export default function Welcome({
                                 Sobre
                             </p>
                             <h2 className="text-3xl font-semibold text-[#1b1230]">
-                                Uma experiencia bancaria feita para ritmo real.
+                                Uma experiência bancária feita para ritmo real.
                             </h2>
                             <p className="text-sm text-[#5a4a79]">
-                                A Fintech.laravel nasce para quem nao quer perder tempo com
+                                A Fintech.laravel nasce para quem não quer perder tempo com
                                 telas antigas. Tudo foi desenhado para ser
-                                rapido, claro e bonito: do extrato a
-                                transferencia, do Pix a gestao de limites.
+                                rápido, claro e bonito: do extrato à
+                                transferência, do Pix à gestão de limites.
                             </p>
                             <div className="flex flex-wrap gap-3">
                                 {[
                                     'Conta digital completa',
-                                    'Suporte humano e rapido',
-                                    'Operacoes em tempo real',
+                                    'Suporte humano e rápido',
+                                    'Operações em tempo real',
                                 ].map((item) => (
                                     <span
                                         key={item}
@@ -268,7 +268,7 @@ export default function Welcome({
                                         desc: 'Tudo que importa chega em tempo real.',
                                     },
                                     {
-                                        title: 'Alertas de seguranca',
+                                        title: 'Alertas de segurança',
                                         desc: 'Monitoramento ativo para evitar riscos.',
                                     },
                                 ].map((item) => (
@@ -402,7 +402,7 @@ export default function Welcome({
                                 </p>
                             </div>
                             <h2 className="mt-4 text-3xl font-semibold text-[#1b1230]">
-                                Infra pronta para crescer com voce.
+                                Infra pronta para crescer com você.
                             </h2>
                             <p className="mt-3 text-sm text-[#5a4a79]">
                                 Infraestrutura em camadas, escalavel e com
@@ -434,11 +434,11 @@ export default function Welcome({
                             </div>
                             <p className="mt-4 text-sm text-[#5a4a79]">
                                 Abra sua conta e teste as funcoes que estao
-                                mudando a forma como voce gerencia seu dinheiro.
+                                mudando a forma como você gerencia seu dinheiro.
                             </p>
                             <div className="mt-6 space-y-3 text-sm text-[#4b3b70]">
                                 {[
-                                    'Cadastro rapido e transparente',
+                                    'Cadastro rápido e transparente',
                                     'Conta digital e cartão virtual',
                                     'AI para automatizar suas metas',
                                 ].map((item) => (

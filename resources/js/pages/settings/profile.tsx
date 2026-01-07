@@ -216,8 +216,8 @@ export default function Profile({
                                 </div>
 
                                 <HeadingSmall
-                                    title="Endereco"
-                                    description="Atualize seu endereco residencial."
+                                    title="Endereço"
+                                    description="Atualize seu endereço residencial."
                                 />
 
                                 <div className="grid gap-2 sm:grid-cols-3">
@@ -242,7 +242,7 @@ export default function Profile({
                                     </div>
                                     <div className="grid gap-2">
                                         <Label htmlFor="address_number">
-                                            Numero
+                                            Número
                                         </Label>
                                         <Input
                                             id="address_number"
@@ -361,7 +361,7 @@ export default function Profile({
                                     auth.user.email_verified_at === null && (
                                         <div>
                                             <p className="-mt-4 text-sm text-muted-foreground">
-                                                Seu email ainda nao foi
+                                                Seu email ainda não foi
                                                 verificado.{' '}
                                                 <Link
                                                     href={send()}
@@ -369,14 +369,14 @@ export default function Profile({
                                                     className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                                 >
                                                     Clique aqui para reenviar o
-                                                    email de verificacao.
+                                                    email de verificação.
                                                 </Link>
                                             </p>
 
                                             {status ===
                                                 'verification-link-sent' && (
                                                 <div className="mt-2 text-sm font-medium text-green-600">
-                                                    Um novo link de verificacao
+                                                    Um novo link de verificação
                                                     foi enviado para seu email.
                                                 </div>
                                             )}

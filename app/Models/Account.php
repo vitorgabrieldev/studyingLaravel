@@ -47,6 +47,11 @@ class Account extends Model
         return $this->hasMany(Transaction::class);
     }
 
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Card::class);
+    }
+
     public function transfersOut(): HasMany
     {
         return $this->hasMany(Transfer::class, 'from_account_id');

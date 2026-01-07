@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\BoletoController;
+use App\Http\Controllers\Api\CardController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PixController;
 use App\Http\Controllers\Api\PixKeyController;
@@ -16,6 +17,17 @@ Route::middleware(['web', 'auth', 'verified'])->group(function () {
         ->middleware('throttle:pix-keys');
     Route::delete('pix/keys/{pixKey}', [PixKeyController::class, 'destroy'])
         ->middleware('throttle:pix-keys');
+
+    Route::get('cards', [CardController::class, 'index']);
+    Route::post('cards', [CardController::class, 'store'])
+        ->middleware('throttle:banking-actions');
+    Route::post('cards/{card}/reveal', [CardController::class, 'reveal'])
+        ->middleware('throttle:banking-actions');
+    Route::post('cards/{card}/block', [CardController::class, 'block']);
+    Route::post('cards/{card}/unblock', [CardController::class, 'unblock']);
+    Route::post('cards/{card}/settings', [CardController::class, 'settings']);
+    Route::post('cards/{card}/replace', [CardController::class, 'replace'])
+        ->middleware('throttle:banking-actions');
 
     Route::middleware('throttle:banking-actions')->group(function () {
         Route::post('pix/send', [PixController::class, 'send']);

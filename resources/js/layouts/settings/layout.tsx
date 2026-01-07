@@ -38,8 +38,8 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     return (
         <div className="px-4 py-6">
             <Heading
-                title="Configuracoes"
-                description="Gerencie seu perfil e preferencias."
+                title="Configurações"
+                description="Gerencie seu perfil e preferências."
             />
 
             <div className="flex flex-col lg:flex-row lg:space-x-12">

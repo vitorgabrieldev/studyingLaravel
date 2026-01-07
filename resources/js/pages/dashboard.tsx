@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Inicio',
+        title: 'Início',
         href: '/dashboard',
     },
 ];
@@ -35,6 +35,11 @@ type DashboardData = {
         account_number: string;
         account_digit: string;
         balance_cents: number;
+    };
+    card: {
+        current_invoice_cents: number;
+        available_limit_cents: number;
+        limit_cents: number;
     };
     transactions: Transaction[];
 };
@@ -56,13 +61,19 @@ export default function Dashboard({
     const maskedBalance = hideValues
         ? 'R$ ••••'
         : formatCurrency(data?.account.balance_cents ?? 0);
-    const maskedLimit = hideValues ? 'R$ ••••' : formatCurrency(120000);
-    const maskedMinimum = hideValues ? 'R$ ••••' : formatCurrency(4200);
-    const maskedCardSuffix = hideValues ? '*** ****' : '*** 2451';
+    const maskedLimit = hideValues
+        ? 'R$ ••••'
+        : formatCurrency(data?.card.available_limit_cents ?? 0);
+    const maskedInvoice = hideValues
+        ? 'R$ ••••'
+        : formatCurrency(data?.card.current_invoice_cents ?? 0);
+    const maskedTotalLimit = hideValues
+        ? 'R$ ••••'
+        : formatCurrency(data?.card.limit_cents ?? 0);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Inicio" />
+            <Head title="Início" />
             <div className="flex flex-1 flex-col gap-6 overflow-x-auto p-6 md:p-8">
                 <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#f21d41] via-[#f45b4d] to-[#f7b08e] p-8 text-white shadow-xl">
                     <div className="absolute -right-16 -top-10 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
@@ -148,7 +159,7 @@ export default function Dashboard({
                     <div className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-sm">
                         <div className="flex items-center justify-between">
                             <h2 className="text-lg font-semibold text-foreground">
-                                Ultimas movimentações
+                                Últimas movimentações
                             </h2>
                             <span className="text-sm text-muted-foreground">
                                 Hoje
@@ -157,7 +168,7 @@ export default function Dashboard({
                         <div className="mt-4 space-y-4">
                             {loading && (
                                 <p className="text-sm text-muted-foreground">
-                                    Carregando historico...
+                                    Carregando histórico...
                                 </p>
                             )}
                             {error && (
@@ -199,7 +210,7 @@ export default function Dashboard({
                             {!loading &&
                                 data?.transactions?.length === 0 && (
                                     <p className="text-sm text-muted-foreground">
-                                        Nenhuma movimentacao registrada ainda.
+                                        Nenhuma movimentação registrada ainda.
                                     </p>
                                 )}
                         </div>
@@ -208,24 +219,33 @@ export default function Dashboard({
                     <div className="rounded-3xl border h-fit border-white/70 bg-gradient-to-br from-[#fde7de] via-white to-white p-6 text-foreground shadow-lg">
                         <div className="flex items-center justify-between">
                             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                                Cartão digital
+                                Fatura do mes
                             </p>
                             <CreditCard className="h-5 w-5 text-[#b91c3a]" />
                         </div>
                         <div className="mt-6 space-y-2">
                             <p className="text-sm text-muted-foreground">
-                                Limite disponivel
+                                Valor da fatura
                             </p>
                             <p className="text-2xl font-semibold">
-                                {maskedLimit}
+                                {maskedInvoice}
                             </p>
                             <p className="text-xs text-muted-foreground">
-                                Pagamento minimo: {maskedMinimum}
+                                Limite disponível: {maskedLimit}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                                Limite total: {maskedTotalLimit}
                             </p>
                         </div>
                         <div className="mt-8 flex items-center justify-between text-xs text-muted-foreground">
-                            <span>VIRTUAL</span>
-                            <span>{maskedCardSuffix}</span>
+                            <span>Cartões</span>
+                            <Link
+                                href="/cartoes"
+                                prefetch
+                                className="font-semibold text-[#b91c3a] transition hover:-translate-y-0.5"
+                            >
+                                Gerenciar
+                            </Link>
                         </div>
                     </div>
                 </section>

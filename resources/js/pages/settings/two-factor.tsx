@@ -53,8 +53,8 @@ export default function TwoFactor({
                         <div className="flex flex-col items-start justify-start space-y-4">
                             <Badge variant="default">Ativado</Badge>
                             <p className="text-muted-foreground">
-                                Com o 2FA ativo, voce confirma o login com um
-                                codigo seguro gerado no seu aplicativo
+                                Com o 2FA ativo, você confirma o login com um
+                                código seguro gerado no seu aplicativo
                                 autenticador.
                             </p>
 
@@ -82,7 +82,7 @@ export default function TwoFactor({
                         <div className="flex flex-col items-start justify-start space-y-4">
                             <Badge variant="destructive">Desativado</Badge>
                             <p className="text-muted-foreground">
-                                Ao ativar o 2FA, voce usara um codigo gerado no
+                                Ao ativar o 2FA, você usará um código gerado no
                                 seu celular para confirmar o acesso.
                             </p>
 

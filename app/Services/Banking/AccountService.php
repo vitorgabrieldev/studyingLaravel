@@ -7,6 +7,10 @@ use App\Models\User;
 
 class AccountService
 {
+    public function __construct(private readonly CardService $cardService)
+    {
+    }
+
     public function createForUser(User $user): Account
     {
         if ($user->account) {
@@ -15,13 +19,17 @@ class AccountService
 
         [$accountNumber, $accountDigit] = $this->generateAccountNumber();
 
-        return Account::create([
+        $account = Account::create([
             'user_id' => $user->id,
             'branch_number' => '0001',
             'account_number' => $accountNumber,
             'account_digit' => $accountDigit,
             'balance_cents' => 0,
         ]);
+
+        $this->cardService->ensurePhysicalCard($account);
+
+        return $account;
     }
 
     /**
