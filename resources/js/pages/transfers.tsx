@@ -6,7 +6,7 @@ import { ArrowRightLeft, Shield, Users } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Transferencias', href: '/transferencias' },
+    { title: 'Transferências', href: '/transferencias' },
 ];
 
 export default function Transfers() {
@@ -104,7 +104,7 @@ export default function Transfers() {
                             onChange={(event) =>
                                 setDestinationType(event.target.value)
                             }
-                            className="h-11 rounded-xl border border-white/80 bg-white/70 px-3 text-sm"
+                            className="h-11 rounded-xl border border-black/10 bg-white/70 px-3 text-sm"
                         >
                             <option value="account">Conta bancaria</option>
                             <option value="email">Email do usuario</option>
@@ -120,7 +120,7 @@ export default function Transfers() {
                                     onChange={(event) =>
                                         setDestination(event.target.value)
                                     }
-                                    className="h-11 rounded-xl border border-white/80 bg-white/70 px-3"
+                                    className="h-11 rounded-xl border border-black/10 bg-white/70 px-3"
                                     placeholder="00000000"
                                 />
                             </label>
@@ -131,7 +131,7 @@ export default function Transfers() {
                                     onChange={(event) =>
                                         setAccountDigit(event.target.value)
                                     }
-                                    className="h-11 rounded-xl border border-white/80 bg-white/70 px-3"
+                                    className="h-11 rounded-xl border border-black/10 bg-white/70 px-3"
                                     placeholder="0"
                                 />
                             </label>
@@ -144,7 +144,7 @@ export default function Transfers() {
                                 onChange={(event) =>
                                     setDestination(event.target.value)
                                 }
-                                className="h-11 rounded-xl border border-white/80 bg-white/70 px-3"
+                                className="h-11 rounded-xl border border-black/10 bg-white/70 px-3"
                                 placeholder="email@exemplo.com"
                             />
                         </label>
@@ -155,14 +155,14 @@ export default function Transfers() {
                         <input
                             value={amount}
                             onChange={(event) => setAmount(event.target.value)}
-                            className="h-11 rounded-xl border border-white/80 bg-white/70 px-3"
+                            className="h-11 rounded-xl border border-black/10 bg-white/70 px-3"
                             placeholder="0,00"
                             inputMode="decimal"
                         />
                         <span className="text-xs text-[#7b6a99]">
                             {amount
                                 ? formatCurrency(toCents(amount))
-                                : 'Transferencias para contas Fintech.laravel sao instantaneas.'}
+                                : 'Transferências para contas Fintech.laravel sao instantaneas.'}
                         </span>
                     </label>
 
@@ -173,7 +173,7 @@ export default function Transfers() {
                             onChange={(event) =>
                                 setDescription(event.target.value)
                             }
-                            className="h-11 rounded-xl border border-white/80 bg-white/70 px-3"
+                            className="h-11 rounded-xl border border-black/10 bg-white/70 px-3"
                             placeholder="Ex: combinados, aluguel, etc"
                         />
                     </label>

@@ -34,7 +34,7 @@ export default function AuthSimpleLayout({
                             rotina financeira.
                         </h1>
                         <p className="max-w-lg text-base text-[#4b3b70]">
-                            Gerencie saldo, Pix, boletos e transferencias em um
+                            Gerencie saldo, Pix, boletos e transferências em um
                             unico lugar, com a mesma simplicidade que voce
                             espera de um app moderno.
                         </p>
@@ -44,7 +44,7 @@ export default function AuthSimpleLayout({
                         {[
                             'Pix instantaneo e gratuito',
                             'Cartoes virtuais e controle total',
-                            'Boletos e transferencias em segundos',
+                            'Boletos e transferências em segundos',
                             'Seguranca multicamadas',
                         ].map((item) => (
                             <div

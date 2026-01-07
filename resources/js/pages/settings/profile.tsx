@@ -7,12 +7,14 @@ import { Form, Head, Link, usePage } from '@inertiajs/react';
 import DeleteUser from '@/components/delete-user';
 import HeadingSmall from '@/components/heading-small';
 import InputError from '@/components/input-error';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { edit } from '@/routes/profile';
+import { useEffect, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,6 +31,17 @@ export default function Profile({
     status?: string;
 }) {
     const { auth } = usePage<SharedData>().props;
+    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (avatarPreview) {
+                URL.revokeObjectURL(avatarPreview);
+            }
+        };
+    }, [avatarPreview]);
+
+    const avatarSrc = avatarPreview ?? auth.user.avatar ?? null;
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -46,10 +59,68 @@ export default function Profile({
                         options={{
                             preserveScroll: true,
                         }}
+                        encType="multipart/form-data"
                         className="space-y-6"
                     >
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
+                                <div className="flex flex-wrap items-center gap-4">
+                                    <Avatar className="h-16 w-16 overflow-hidden rounded-full border border-white/70 bg-white/70">
+                                        <AvatarImage
+                                            src={avatarSrc ?? undefined}
+                                            alt={auth.user.name}
+                                        />
+                                        <AvatarFallback className="rounded-full bg-[#f1ecd0] text-[#230f2b]">
+                                            {auth.user.name
+                                                .split(' ')
+                                                .slice(0, 2)
+                                                .map((part) => part[0])
+                                                .join('')
+                                                .toUpperCase()}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <div className="grid flex-1 gap-2">
+                                        <Label htmlFor="avatar">
+                                            Foto de perfil
+                                        </Label>
+                                        <Input
+                                            id="avatar"
+                                            name="avatar"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(event) => {
+                                                const file =
+                                                    event.target.files?.[0];
+
+                                                if (!file) {
+                                                    setAvatarPreview(null);
+                                                    return;
+                                                }
+
+                                                const nextPreview =
+                                                    URL.createObjectURL(file);
+
+                                                setAvatarPreview((prev) => {
+                                                    if (prev) {
+                                                        URL.revokeObjectURL(
+                                                            prev,
+                                                        );
+                                                    }
+                                                    return nextPreview;
+                                                });
+                                            }}
+                                        />
+                                        <p className="text-xs text-muted-foreground">
+                                            Envie uma imagem JPG ou PNG de ate
+                                            2MB.
+                                        </p>
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.avatar}
+                                        />
+                                    </div>
+                                </div>
+
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">Nome</Label>
 

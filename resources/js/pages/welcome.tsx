@@ -57,7 +57,7 @@ export default function Welcome({
                                 {canRegister && (
                                     <Link
                                         href={register()}
-                                        className="rounded-full bg-primary px-4 py-2 font-medium text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95"
+                                        className="rounded-full text-white bg-primary px-4 py-2 font-medium text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95"
                                     >
                                         Abrir conta
                                     </Link>
@@ -85,7 +85,7 @@ export default function Welcome({
                                 {canRegister && (
                                     <Link
                                         href={register()}
-                                        className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95"
+                                        className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm text-white font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95"
                                     >
                                         Quero abrir minha conta
                                         <ArrowRight className="h-4 w-4" />
@@ -98,6 +98,8 @@ export default function Welcome({
                                     Ja tenho conta
                                 </Link>
                             </div>
+
+                            <br></br>
 
                             <div className="grid gap-4 sm:grid-cols-2">
                                 {[
@@ -120,7 +122,7 @@ export default function Welcome({
                                         icon: ShieldCheck,
                                     },
                                     {
-                                        title: 'Transferencias internas',
+                                        title: 'Transferências internas',
                                         description:
                                             'Para usuarios Fintech.laravel sem tarifas.',
                                         icon: ArrowRight,
@@ -368,9 +370,6 @@ export default function Welcome({
                                 <p className="text-xs uppercase tracking-[0.3em] text-[#6d28d9]">
                                     Empresas que confiam
                                 </p>
-                                <h2 className="text-2xl font-semibold text-[#1b1230]">
-                                    Marcas que usam Fintech.laravel para orquestrar suas financas
-                                </h2>
                             </div>
                         </div>
                         <div className="mt-6 grid gap-4 text-sm text-[#4b3b70] sm:grid-cols-2 lg:grid-cols-4">
@@ -386,7 +385,7 @@ export default function Welcome({
                             ].map((name) => (
                                 <div
                                     key={name}
-                                    className="flex items-center justify-center rounded-2xl border border-white/70 bg-white/70 px-4 py-5 font-semibold uppercase tracking-[0.2em] text-[#5a4a79] transition hover:-translate-y-1 hover:shadow-lg active:scale-95"
+                                    className="flex items-center justify-center rounded-2xl select-none border border-black/10 bg-white/70 px-4 py-5 font-semibold uppercase tracking-[0.2em] text-[#5a4a79] transition hover:-translate-y-1 hover:shadow-lg active:scale-95 cursor-pointer"
                                 >
                                     {name}
                                 </div>
@@ -440,7 +439,7 @@ export default function Welcome({
                             <div className="mt-6 space-y-3 text-sm text-[#4b3b70]">
                                 {[
                                     'Cadastro rapido e transparente',
-                                    'Conta digital e cartao virtual',
+                                    'Conta digital e cartão virtual',
                                     'AI para automatizar suas metas',
                                 ].map((item) => (
                                     <div
@@ -455,7 +454,7 @@ export default function Welcome({
                             {canRegister ? (
                                 <Link
                                     href={register()}
-                                    className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95"
+                                    className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95 text-white"
                                 >
                                     Criar conta
                                     <ArrowRight className="h-4 w-4" />

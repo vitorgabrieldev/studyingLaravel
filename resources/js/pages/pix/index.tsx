@@ -101,7 +101,7 @@ export default function PixSend() {
                             Enviar Pix
                         </h1>
                         <p className="text-sm text-[#6b5d87]">
-                            Transferencias instantaneas para qualquer chave.
+                            Transferências instantaneas para qualquer chave.
                         </p>
                     </div>
 
@@ -113,7 +113,7 @@ export default function PixSend() {
                                 onChange={(event) =>
                                     setKey(event.target.value)
                                 }
-                                className="h-11 rounded-xl border border-white/80 bg-white/70 px-3"
+                                className="h-11 rounded-xl border border-black/10 bg-white/70 px-3"
                                 placeholder="Email, CPF, telefone ou chave aleatoria"
                             />
                         </label>
@@ -125,7 +125,7 @@ export default function PixSend() {
                                 onChange={(event) =>
                                     setAmount(event.target.value)
                                 }
-                                className="h-11 rounded-xl border border-white/80 bg-white/70 px-3"
+                                className="h-11 rounded-xl border border-black/10 bg-white/70 px-3"
                                 placeholder="0,00"
                                 inputMode="decimal"
                             />
@@ -143,8 +143,8 @@ export default function PixSend() {
                                 onChange={(event) =>
                                     setDescription(event.target.value)
                                 }
-                                className="h-11 rounded-xl border border-white/80 bg-white/70 px-3"
-                                placeholder="Ex: almoco, aluguel, etc"
+                                className="h-11 rounded-xl border border-black/10 bg-white/70 px-3"
+                                placeholder="Ex: almoço, aluguel, etc..."
                             />
                         </label>
                     </div>
@@ -197,7 +197,7 @@ export default function PixSend() {
                                     type="button"
                                     key={pixKey.id}
                                     onClick={() => setKey(pixKey.key)}
-                                    className="flex w-full items-center justify-between rounded-2xl border border-white/80 bg-white/70 px-3 py-2 text-left transition hover:-translate-y-0.5 hover:border-purple-200 hover:shadow-md active:scale-95"
+                                    className="flex w-full items-center justify-between rounded-2xl border border-black/10 bg-white/70 px-3 py-2 text-left transition hover:-translate-y-0.5 hover:border-purple-200 hover:shadow-md active:scale-95"
                                 >
                                     <span className="text-xs uppercase tracking-[0.2em] text-[#7b6a99]">
                                         {pixKey.type}
@@ -218,7 +218,7 @@ export default function PixSend() {
                             </p>
                         </div>
                         <p className="mt-2 text-xs text-[#6b5d87]">
-                            Todas as transferencias Pix sao autenticadas e
+                            Todas as transferências Pix sao autenticadas e
                             monitoradas em tempo real.
                         </p>
                         <div className="mt-4 flex items-center gap-2 text-xs text-[#5b21b6]">

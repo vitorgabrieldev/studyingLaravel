@@ -34,7 +34,7 @@ const mainNavItems: NavItem[] = [
         icon: Send,
     },
     {
-        title: 'Transferencias',
+        title: 'Transferências',
         href: '/transferencias',
         icon: ArrowRightLeft,
     },
