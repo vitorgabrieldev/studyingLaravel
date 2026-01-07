@@ -70,24 +70,26 @@ export default function TransactionsIndex({
                                 Saldo atual: {formatCurrency(account.balance_cents)}
                             </p>
                         </div>
-                        <form className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/70 bg-white/70 px-4 py-2 text-xs text-muted-foreground">
+                        <form className="flex w-full flex-col gap-2 rounded-2xl border border-white/70 bg-white/70 px-4 py-2 text-xs text-muted-foreground sm:w-auto sm:flex-row sm:items-center">
                             <Search className="h-4 w-4" />
                             <input
                                 name="q"
                                 defaultValue={searchValue}
                                 placeholder="Buscar"
-                                className="bg-transparent text-xs text-foreground outline-none"
+                                className="w-full bg-transparent text-xs text-foreground outline-none sm:w-32"
                             />
-                            <span className="text-muted-foreground">|</span>
+                            <span className="hidden text-muted-foreground sm:inline">
+                                |
+                            </span>
                             <input
                                 name="tag"
                                 defaultValue={tagValue}
                                 placeholder="Tag"
-                                className="bg-transparent text-xs text-foreground outline-none"
+                                className="w-full bg-transparent text-xs text-foreground outline-none sm:w-24"
                             />
                             <button
                                 type="submit"
-                                className="rounded-full border border-white/70 bg-white px-3 py-1 text-[10px] font-semibold text-[#b91c3a] transition hover:bg-[#fde2d8]"
+                                className="w-full rounded-full border border-white/70 bg-white px-3 py-1 text-[10px] font-semibold text-[#b91c3a] transition hover:bg-[#fde2d8] sm:w-auto"
                             >
                                 Filtrar
                             </button>
@@ -118,9 +120,9 @@ export default function TransactionsIndex({
                         {transactions.data.map((transaction) => (
                             <div
                                 key={transaction.id}
-                                className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/60 bg-white/70 px-4 py-4"
+                                className="flex flex-col gap-4 rounded-2xl border border-white/60 bg-white/70 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
                             >
-                                <div className="space-y-1">
+                                <div className="min-w-0 space-y-1">
                                     <p className="text-sm font-medium text-foreground">
                                         {transaction.description}
                                     </p>
@@ -148,7 +150,7 @@ export default function TransactionsIndex({
                                             </div>
                                         )}
                                 </div>
-                                <div className="flex items-center gap-4">
+                                <div className="flex flex-wrap items-center gap-3">
                                     <span
                                         className={`text-sm font-semibold ${
                                             transaction.direction === 'credit'
@@ -165,7 +167,7 @@ export default function TransactionsIndex({
                                     </span>
                                     <Link
                                         href={`/transacoes/${transaction.id}`}
-                                        className="rounded-full border border-white/70 bg-white px-3 py-2 text-xs font-semibold text-[#b91c3a] transition hover:bg-[#fde2d8] active:scale-95"
+                                        className="w-full rounded-full border border-white/70 bg-white px-3 py-2 text-center text-xs font-semibold text-[#b91c3a] transition hover:bg-[#fde2d8] active:scale-95 sm:w-auto"
                                     >
                                         Ver comprovante
                                     </Link>

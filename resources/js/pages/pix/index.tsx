@@ -208,12 +208,12 @@ export default function PixSend() {
                                     type="button"
                                     key={pixKey.id}
                                     onClick={() => setKey(pixKey.key)}
-                                    className="flex w-full items-center justify-between rounded-2xl border border-black/10 bg-white/70 px-3 py-2 text-left transition hover:-translate-y-0.5 hover:border-purple-200 hover:shadow-md active:scale-95"
+                                    className="flex w-full flex-col items-start gap-1 rounded-2xl border border-black/10 bg-white/70 px-3 py-2 text-left transition hover:-translate-y-0.5 hover:border-purple-200 hover:shadow-md active:scale-95 sm:flex-row sm:items-center sm:justify-between"
                                 >
                                     <span className="text-xs uppercase tracking-[0.2em] text-[#7b6a99]">
                                         {pixKey.type}
                                     </span>
-                                    <span className="ml-2 truncate text-sm font-medium text-[#2a1f45]">
+                                    <span className="sm:ml-2 break-all text-sm font-medium text-[#2a1f45]">
                                         {pixKey.key}
                                     </span>
                                 </button>

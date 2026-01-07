@@ -34,11 +34,11 @@ export default function Welcome({
                 <div className="pointer-events-none absolute bottom-0 left-20 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,rgba(124,58,237,0.35),rgba(124,58,237,0))] blur-3xl animate-float-fast" />
                 <div className="pointer-events-none absolute -bottom-40 right-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(147,51,234,0.4),rgba(147,51,234,0))] blur-3xl animate-glow" />
 
-                <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
+                <header className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
                     <Link href={dashboard()} className="inline-flex items-center">
                         <AppLogo />
                     </Link>
-                    <nav className="flex items-center gap-3 text-sm">
+                    <nav className="flex w-full flex-wrap items-center gap-2 text-sm sm:w-auto sm:justify-end">
                         <Link
                             href="/sobre"
                             className="rounded-full px-3 py-2 text-[#4b3b70] transition hover:text-[#2a1f45] hover:-translate-y-0.5 active:scale-95"

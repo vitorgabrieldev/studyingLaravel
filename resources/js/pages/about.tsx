@@ -11,11 +11,11 @@ export default function About() {
                 <div className="pointer-events-none absolute -right-24 top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,rgba(35,15,43,0.2),rgba(35,15,43,0))] blur-3xl" />
                 <div className="pointer-events-none absolute bottom-0 left-20 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_center,rgba(235,235,188,0.5),rgba(235,235,188,0))] blur-3xl" />
 
-                <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
+                <header className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
                     <Link href="/" className="inline-flex items-center gap-2">
                         <AppLogo />
                     </Link>
-                    <nav className="flex items-center gap-4 text-sm text-[#4b3b70]">
+                    <nav className="flex w-full flex-wrap items-center gap-3 text-sm text-[#4b3b70] sm:w-auto sm:justify-end">
                         <Link href="/faq" className="hover:text-[#230f2b]">
                             FAQ
                         </Link>

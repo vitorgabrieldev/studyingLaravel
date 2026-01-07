@@ -84,7 +84,7 @@ export default function AuthSimpleLayout({
                     </div>
                 </div>
 
-                <div className="w-full max-w-[43%]">
+                <div className="w-full lg:w-[43%] lg:max-w-[43%]">
                     <div className="rounded-3xl border border-white/60 bg-white/80 p-8 shadow-xl backdrop-blur">
                         <div className="space-y-2">
                             <h2 className="text-2xl font-semibold text-[#1b1230]">

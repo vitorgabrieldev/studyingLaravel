@@ -81,7 +81,7 @@ export default function Login({
                                     tabIndex={1}
                                     autoComplete="email"
                                     placeholder="email@example.com"
-                                    className="h-11 rounded-[8px] border-black/20 bg-white/70"
+                                    className="h-11 rounded-[8px] border border-black/20 bg-white/70"
                                 />
                                 <InputError message={errors.email} />
                             </div>
@@ -99,7 +99,7 @@ export default function Login({
                                         </TextLink>
                                     )}
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="grid grid-cols-4 gap-2 sm:grid-cols-8">
                                     {passwordDigits.map((digit, index) => (
                                         <input
                                             key={`password-${index}`}
@@ -120,8 +120,10 @@ export default function Login({
                                                     index,
                                                 )
                                             }
+                                            type="password"
                                             inputMode="numeric"
                                             maxLength={1}
+                                            pattern="[0-9]*"
                                             aria-label={`Dígito ${
                                                 index + 1
                                             } da senha`}

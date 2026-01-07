@@ -145,10 +145,10 @@ export default function TransactionShow({
             <Head title="Comprovante" />
 
             <div className="flex flex-1 flex-col gap-6 p-6 md:p-8">
-                <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <Link
                         href="/transacoes"
-                        className="text-sm font-semibold text-[#b91c3a] transition flex items-center"
+                        className="flex items-center text-sm font-semibold text-[#b91c3a] transition"
                     >
                         <ChevronLeft />
                         Voltar para o extrato
@@ -158,7 +158,7 @@ export default function TransactionShow({
                             <TooltipTrigger asChild>
                                 <a
                                     href={`/transacoes/${transaction.id}/comprovante`}
-                                    className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/70 bg-white px-4 py-2 text-xs font-semibold text-[#b91c3a] transition hover:-translate-y-0.5 hover:bg-[#fde2d8] active:scale-95"
+                                    className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-white/70 bg-white px-4 py-2 text-xs font-semibold text-[#b91c3a] transition hover:-translate-y-0.5 hover:bg-[#fde2d8] active:scale-95 sm:w-auto"
                                 >
                                     <Download className="h-4 w-4" />
                                     Baixar PDF
@@ -173,7 +173,7 @@ export default function TransactionShow({
                                 <button
                                     type="button"
                                     onClick={handleShare}
-                                    className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/70 bg-white px-4 py-2 text-xs font-semibold text-[#b91c3a] transition hover:-translate-y-0.5 hover:bg-[#fde2d8] active:scale-95"
+                                    className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-white/70 bg-white px-4 py-2 text-xs font-semibold text-[#b91c3a] transition hover:-translate-y-0.5 hover:bg-[#fde2d8] active:scale-95 sm:w-auto"
                                 >
                                     <Share2 className="h-4 w-4" />
                                     Compartilhar
@@ -199,7 +199,7 @@ export default function TransactionShow({
                                             );
                                         }
                                     }}
-                                    className="inline-flex items-center gap-2 cursor-pointer rounded-full border border-white/70 bg-white px-4 py-2 text-xs font-semibold text-[#b91c3a] transition hover:-translate-y-0.5 hover:bg-[#fde2d8] active:scale-95"
+                                    className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-white/70 bg-white px-4 py-2 text-xs font-semibold text-[#b91c3a] transition hover:-translate-y-0.5 hover:bg-[#fde2d8] active:scale-95 sm:w-auto"
                                 >
                                     <Copy className="h-4 w-4" />
                                     {copied ? 'Copiado' : 'Copiar referência'}
@@ -254,7 +254,7 @@ export default function TransactionShow({
                             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
                                 sua conta
                             </p>
-                            <p className="mt-2 text-sm font-semibold text-foreground">
+                            <p className="mt-2 break-words text-sm font-semibold text-foreground">
                                 {accountLabel}
                             </p>
                             <p className="text-xs text-muted-foreground">
@@ -269,7 +269,7 @@ export default function TransactionShow({
                                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
                                     destinatário
                                 </p>
-                                <p className="mt-2 text-sm font-semibold text-foreground">
+                                <p className="mt-2 break-words text-sm font-semibold text-foreground">
                                     {counterpartyLabel}
                                 </p>
                             </div>
@@ -291,7 +291,7 @@ export default function TransactionShow({
                                 <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
                                     código de barras
                                 </p>
-                                <p className="mt-2 text-sm font-semibold text-foreground">
+                                <p className="mt-2 break-all text-sm font-semibold text-foreground">
                                     {transaction.meta.barcode}
                                 </p>
                             </div>
@@ -324,12 +324,12 @@ export default function TransactionShow({
                                     setTagInput(event.target.value)
                                 }
                                 placeholder="Nova tag"
-                                className="h-9 rounded-full border border-white/70 bg-white/80 px-3 text-xs text-foreground outline-none"
+                                className="h-9 w-full rounded-full border border-white/70 bg-white/80 px-3 text-xs text-foreground outline-none sm:w-auto"
                             />
                             <button
                                 type="button"
                                 onClick={handleAddTag}
-                                className="rounded-full border border-white/70 bg-white px-3 py-2 text-xs font-semibold text-[#b91c3a] transition hover:bg-[#fde2d8]"
+                                className="w-full rounded-full border border-white/70 bg-white px-3 py-2 text-xs font-semibold text-[#b91c3a] transition hover:bg-[#fde2d8] sm:w-auto"
                             >
                                 Adicionar
                             </button>
@@ -337,7 +337,7 @@ export default function TransactionShow({
                                 type="button"
                                 onClick={handleSaveTags}
                                 disabled={savingTags}
-                                className="rounded-full bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:bg-primary/90"
+                                className="w-full rounded-full bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground shadow-lg shadow-purple-500/20 transition hover:bg-primary/90 sm:w-auto"
                             >
                                 {savingTags ? 'Salvando...' : 'Salvar tags'}
                             </button>

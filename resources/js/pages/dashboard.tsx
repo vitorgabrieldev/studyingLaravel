@@ -74,11 +74,11 @@ export default function Dashboard({
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Início" />
-            <div className="flex flex-1 flex-col gap-6 overflow-x-auto p-6 md:p-8">
+            <div className="flex flex-1 flex-col gap-6 overflow-x-hidden p-6 md:p-8">
                 <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#f21d41] via-[#f45b4d] to-[#f7b08e] p-8 text-white shadow-xl">
                     <div className="absolute -right-16 -top-10 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
                     <div className="absolute -bottom-12 left-10 h-32 w-32 rounded-full bg-white/10 blur-3xl" />
-                    <div className="relative z-10 flex items-start justify-between gap-4">
+                    <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                         <div className="space-y-4">
                             <p className="text-xs uppercase tracking-[0.4em] text-white/80">
                                 saldo atual
@@ -113,7 +113,7 @@ export default function Dashboard({
                     </div>
                 </section>
 
-                <section className="grid gap-4 md:grid-cols-4">
+                <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
                     {[
                         {
                             title: 'Enviar Pix',
@@ -178,9 +178,9 @@ export default function Dashboard({
                                 data?.transactions.map((transaction) => (
                                     <div
                                         key={transaction.id}
-                                        className="flex items-center justify-between rounded-2xl border border-white/60 bg-white/70 px-4 py-3"
+                                        className="flex flex-col gap-2 rounded-2xl border border-white/60 bg-white/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
                                     >
-                                        <div>
+                                        <div className="min-w-0">
                                             <p className="text-sm font-medium text-foreground">
                                                 {transaction.description}
                                             </p>

@@ -2,7 +2,7 @@ import { login } from '@/routes';
 import { store } from '@/routes/register';
 import { Form, Head } from '@inertiajs/react';
 import { Bot, CheckCircle2 } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -18,9 +18,58 @@ const STEPS = [
 ];
 
 const DIGIT_COUNT = 8;
+const STEP_ONE_FIELDS = [
+    'name',
+    'cpf',
+    'birth_date',
+    'email',
+    'phone',
+    'password',
+    'password_confirmation',
+];
+
+function StepErrorWatcher({
+    step,
+    errors,
+    onStepChange,
+}: {
+    step: number;
+    errors: Record<string, string>;
+    onStepChange: (next: number) => void;
+}) {
+    useEffect(() => {
+        if (step !== 2) {
+            return;
+        }
+
+        const hasStepOneError = STEP_ONE_FIELDS.some(
+            (field) => errors?.[field],
+        );
+
+        if (hasStepOneError) {
+            onStepChange(1);
+        }
+    }, [step, errors, onStepChange]);
+
+    return null;
+}
 
 export default function Register() {
     const [step, setStep] = useState(1);
+    const [formValues, setFormValues] = useState({
+        name: '',
+        cpf: '',
+        birth_date: '',
+        email: '',
+        phone: '',
+        address_line: '',
+        address_number: '',
+        address_complement: '',
+        neighborhood: '',
+        city: '',
+        state: '',
+        postal_code: '',
+    });
     const [passwordDigits, setPasswordDigits] = useState<string[]>(
         Array(DIGIT_COUNT).fill(''),
     );
@@ -33,6 +82,16 @@ export default function Register() {
 
     const password = passwordDigits.join('');
     const passwordConfirmation = confirmDigits.join('');
+    const inputClass = 'h-11 rounded-[8px] border border-black/20 bg-white/70';
+
+    const handleFieldChange =
+        (field: keyof typeof formValues) =>
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            setFormValues((prev) => ({
+                ...prev,
+                [field]: event.target.value,
+            }));
+        };
 
     const handleDigitChange = (
         value: string,
@@ -77,11 +136,19 @@ export default function Register() {
                 disableWhileProcessing
                 className="flex flex-col gap-6"
             >
-                {({ processing, errors }) => (
+                {({ processing, errors, clearErrors }) => (
                     <>
+                        <StepErrorWatcher
+                            step={step}
+                            errors={errors}
+                            onStepChange={(next) => {
+                                clearErrors();
+                                setStep(next);
+                            }}
+                        />
                         <div className="grid gap-6">
                             <div className="rounded-2xl border border-white/70 bg-white/70 p-4 backdrop-blur">
-                                <div className="flex items-center justify-between gap-4">
+                                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                                     {STEPS.map((item, index) => (
                                         <div
                                             key={item.id}
@@ -106,15 +173,21 @@ export default function Register() {
                                                 {item.label}
                                             </span>
                                             {index < STEPS.length - 1 && (
-                                                <div className="hidden h-px flex-1 bg-white/70 md:block" />
+                                                <div className="hidden h-px flex-1 bg-white/70 sm:block" />
                                             )}
                                         </div>
                                     ))}
                                 </div>
                             </div>
 
-                            {step === 1 && (
-                                <div className="space-y-6">
+                            <div className="grid">
+                                <div
+                                    className={`col-start-1 row-start-1 space-y-6 transition-all duration-300 ${
+                                        step === 1
+                                            ? 'opacity-100 translate-x-0'
+                                            : 'pointer-events-none opacity-0 -translate-x-4'
+                                    }`}
+                                >
                                     <div className="space-y-3">
                                         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b91c3a]">
                                             Dados pessoais
@@ -124,20 +197,24 @@ export default function Register() {
                                                 <Label htmlFor="name">
                                                     Nome completo
                                                 </Label>
-                                                <Input
-                                                    id="name"
-                                                    type="text"
-                                                    required
-                                                    autoFocus
-                                                    autoComplete="name"
-                                                    name="name"
-                                                    placeholder="Seu nome completo"
-                                                    className="h-11 rounded-xl border-white/80 bg-white/70"
-                                                />
-                                                <InputError
-                                                    message={errors.name}
-                                                    className="mt-1"
-                                                />
+                                                    <Input
+                                                        id="name"
+                                                        type="text"
+                                                        required
+                                                        autoFocus
+                                                        autoComplete="name"
+                                                        name="name"
+                                                        placeholder="Seu nome completo"
+                                                        value={formValues.name}
+                                                        onChange={handleFieldChange(
+                                                            'name',
+                                                        )}
+                                                        className={inputClass}
+                                                    />
+                                                    <InputError
+                                                        message={errors.name}
+                                                        className="mt-1"
+                                                    />
                                             </div>
 
                                             <div className="grid gap-3 sm:grid-cols-2">
@@ -152,7 +229,11 @@ export default function Register() {
                                                         autoComplete="off"
                                                         name="cpf"
                                                         placeholder="000.000.000-00"
-                                                        className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                        value={formValues.cpf}
+                                                        onChange={handleFieldChange(
+                                                            'cpf',
+                                                        )}
+                                                        className={inputClass}
                                                     />
                                                     <InputError
                                                         message={errors.cpf}
@@ -167,7 +248,13 @@ export default function Register() {
                                                         type="date"
                                                         required
                                                         name="birth_date"
-                                                        className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                        value={
+                                                            formValues.birth_date
+                                                        }
+                                                        onChange={handleFieldChange(
+                                                            'birth_date',
+                                                        )}
+                                                        className={inputClass}
                                                     />
                                                     <InputError
                                                         message={
@@ -189,7 +276,11 @@ export default function Register() {
                                                         autoComplete="email"
                                                         name="email"
                                                         placeholder="email@exemplo.com"
-                                                        className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                        value={formValues.email}
+                                                        onChange={handleFieldChange(
+                                                            'email',
+                                                        )}
+                                                        className={inputClass}
                                                     />
                                                     <InputError
                                                         message={errors.email}
@@ -205,7 +296,11 @@ export default function Register() {
                                                         required
                                                         name="phone"
                                                         placeholder="(00) 00000-0000"
-                                                        className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                        value={formValues.phone}
+                                                        onChange={handleFieldChange(
+                                                            'phone',
+                                                        )}
+                                                        className={inputClass}
                                                     />
                                                     <InputError
                                                         message={errors.phone}
@@ -215,7 +310,7 @@ export default function Register() {
                                         </div>
                                     </div>
 
-                                    <div className="space-y-3 rounded-2xl border border-white/70 bg-white/70 p-4 backdrop-blur">
+                                    <div className="space-y-3 rounded-2xl border border-white/70 bg-white/70 backdrop-blur">
                                         <div className="flex items-center gap-2 text-sm font-semibold text-[#1b1230]">
                                             <Bot className="h-4 w-4 text-[#b91c3a]" />
                                             Segurança com IA
@@ -239,10 +334,10 @@ export default function Register() {
                                                 </li>
                                             ))}
                                         </ul>
-                                        <div className="grid gap-3 sm:grid-cols-1">
+                                        <div className="grid gap-3">
                                             <div className="grid gap-2">
                                                 <Label>Senha (8 dígitos)</Label>
-                                                <div className="flex gap-2">
+                                                <div className="grid grid-cols-4 gap-2 sm:grid-cols-8">
                                                     {passwordDigits.map(
                                                         (digit, index) => (
                                                             <input
@@ -274,9 +369,11 @@ export default function Register() {
                                                                         passwordRefs,
                                                                     )
                                                                 }
+                                                                type="password"
                                                                 inputMode="numeric"
                                                                 maxLength={1}
-                                                                className="h-11 w-10 rounded-[8px] border border-black/20 bg-white/70 text-center text-sm"
+                                                                pattern="[0-9]*"
+                                                                className="h-11 w-full rounded-[8px] border border-black/20 bg-white/70 text-center text-sm"
                                                             />
                                                         ),
                                                     )}
@@ -289,7 +386,7 @@ export default function Register() {
                                                 <Label>
                                                     Confirmar senha
                                                 </Label>
-                                                <div className="flex gap-2">
+                                                <div className="grid grid-cols-4 gap-2 sm:grid-cols-8">
                                                     {confirmDigits.map(
                                                         (digit, index) => (
                                                             <input
@@ -321,9 +418,11 @@ export default function Register() {
                                                                         confirmRefs,
                                                                     )
                                                                 }
+                                                                type="password"
                                                                 inputMode="numeric"
                                                                 maxLength={1}
-                                                                className="h-11 w-10 rounded-[8px] border border-black/20 bg-white/70 text-center text-sm"
+                                                                pattern="[0-9]*"
+                                                                className="h-11 w-full rounded-[8px] border border-black/20 bg-white/70 text-center text-sm"
                                                             />
                                                         ),
                                                     )}
@@ -350,16 +449,22 @@ export default function Register() {
 
                                     <Button
                                         type="button"
-                                        onClick={() => setStep(2)}
-                                        className="w-full rounded-full bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
+                                        onClick={() => {
+                                            clearErrors();
+                                            setStep(2);
+                                        }}
+                                        className="w-full rounded-[8px] bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
                                     >
                                         Continuar
                                     </Button>
                                 </div>
-                            )}
-
-                            {step === 2 && (
-                                <div className="space-y-6">
+                                <div
+                                    className={`col-start-1 row-start-1 space-y-6 transition-all duration-300 ${
+                                        step === 2
+                                            ? 'opacity-100 translate-x-0'
+                                            : 'pointer-events-none opacity-0 translate-x-4'
+                                    }`}
+                                >
                                     <div className="space-y-3">
                                         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b91c3a]">
                                             Endereço
@@ -376,7 +481,13 @@ export default function Register() {
                                                         required
                                                         name="address_line"
                                                         placeholder="Rua ou avenida"
-                                                        className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                        value={
+                                                            formValues.address_line
+                                                        }
+                                                        onChange={handleFieldChange(
+                                                            'address_line',
+                                                        )}
+                                                        className={inputClass}
                                                     />
                                                     <InputError
                                                         message={
@@ -394,7 +505,13 @@ export default function Register() {
                                                         required
                                                         name="address_number"
                                                         placeholder="000"
-                                                        className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                        value={
+                                                            formValues.address_number
+                                                        }
+                                                        onChange={handleFieldChange(
+                                                            'address_number',
+                                                        )}
+                                                        className={inputClass}
                                                     />
                                                     <InputError
                                                         message={
@@ -414,7 +531,13 @@ export default function Register() {
                                                         type="text"
                                                         name="address_complement"
                                                         placeholder="Apto, bloco, etc"
-                                                        className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                        value={
+                                                            formValues.address_complement
+                                                        }
+                                                        onChange={handleFieldChange(
+                                                            'address_complement',
+                                                        )}
+                                                        className={inputClass}
                                                     />
                                                     <InputError
                                                         message={
@@ -432,7 +555,13 @@ export default function Register() {
                                                         required
                                                         name="neighborhood"
                                                         placeholder="Seu bairro"
-                                                        className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                        value={
+                                                            formValues.neighborhood
+                                                        }
+                                                        onChange={handleFieldChange(
+                                                            'neighborhood',
+                                                        )}
+                                                        className={inputClass}
                                                     />
                                                     <InputError
                                                         message={
@@ -453,7 +582,11 @@ export default function Register() {
                                                         required
                                                         name="city"
                                                         placeholder="Sua cidade"
-                                                        className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                        value={formValues.city}
+                                                        onChange={handleFieldChange(
+                                                            'city',
+                                                        )}
+                                                        className={inputClass}
                                                     />
                                                     <InputError
                                                         message={errors.city}
@@ -469,7 +602,13 @@ export default function Register() {
                                                         required
                                                         name="state"
                                                         placeholder="SP"
-                                                        className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                        value={
+                                                            formValues.state
+                                                        }
+                                                        onChange={handleFieldChange(
+                                                            'state',
+                                                        )}
+                                                        className={inputClass}
                                                     />
                                                     <InputError
                                                         message={errors.state}
@@ -487,7 +626,13 @@ export default function Register() {
                                                     required
                                                     name="postal_code"
                                                     placeholder="00000-000"
-                                                    className="h-11 rounded-xl border-white/80 bg-white/70"
+                                                    value={
+                                                        formValues.postal_code
+                                                    }
+                                                    onChange={handleFieldChange(
+                                                        'postal_code',
+                                                    )}
+                                                    className={inputClass}
                                                 />
                                                 <InputError
                                                     message={
@@ -502,13 +647,17 @@ export default function Register() {
                                         <Button
                                             type="button"
                                             variant="secondary"
-                                            onClick={() => setStep(1)}
+                                            onClick={() => {
+                                                clearErrors();
+                                                setStep(1);
+                                            }}
+                                            className="rounded-[8px]"
                                         >
                                             Voltar
                                         </Button>
                                         <Button
                                             type="submit"
-                                            className="flex-1 rounded-full bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
+                                            className="flex-1 rounded-[8px] bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
                                             data-test="register-user-button"
                                         >
                                             {processing && <Spinner />}
@@ -516,7 +665,7 @@ export default function Register() {
                                         </Button>
                                     </div>
                                 </div>
-                            )}
+                            </div>
                         </div>
 
                         <div className="text-center text-sm text-[#4b3b70]">

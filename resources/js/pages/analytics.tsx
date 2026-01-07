@@ -59,34 +59,43 @@ export default function Analytics({
                             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
                                 Entradas vs saídas
                             </p>
-                            <div className="mt-4 grid grid-cols-6 gap-3">
-                                {series.map((point) => (
-                                    <div key={point.label} className="space-y-2">
-                                        <div className="flex h-24 flex-col justify-end gap-2">
-                                            <div
-                                                className="rounded-full bg-emerald-500/80"
-                                                style={{
-                                                    height: `${Math.max(
-                                                        6,
-                                                        (point.credits / maxValue) * 100,
-                                                    )}%`,
-                                                }}
-                                            />
-                                            <div
-                                                className="rounded-full bg-[#f21d41]/80"
-                                                style={{
-                                                    height: `${Math.max(
-                                                        6,
-                                                        (point.debits / maxValue) * 100,
-                                                    )}%`,
-                                                }}
-                                            />
+                            <div className="mt-4 overflow-x-auto">
+                                <div className="grid min-w-[280px] grid-cols-3 gap-3 sm:grid-cols-6">
+                                    {series.map((point) => (
+                                        <div
+                                            key={point.label}
+                                            className="space-y-2"
+                                        >
+                                            <div className="flex h-24 flex-col justify-end gap-2">
+                                                <div
+                                                    className="rounded-full bg-emerald-500/80"
+                                                    style={{
+                                                        height: `${Math.max(
+                                                            6,
+                                                            (point.credits /
+                                                                maxValue) *
+                                                                100,
+                                                        )}%`,
+                                                    }}
+                                                />
+                                                <div
+                                                    className="rounded-full bg-[#f21d41]/80"
+                                                    style={{
+                                                        height: `${Math.max(
+                                                            6,
+                                                            (point.debits /
+                                                                maxValue) *
+                                                                100,
+                                                        )}%`,
+                                                    }}
+                                                />
+                                            </div>
+                                            <p className="text-center text-[10px] text-muted-foreground">
+                                                {point.label}
+                                            </p>
                                         </div>
-                                        <p className="text-center text-[10px] text-muted-foreground">
-                                            {point.label}
-                                        </p>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
 

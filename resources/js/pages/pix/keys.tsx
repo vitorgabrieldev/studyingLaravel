@@ -226,17 +226,17 @@ export default function PixKeys() {
                         {keys.map((pixKey) => (
                             <div
                                 key={pixKey.id}
-                                className="flex items-center justify-between rounded-2xl border border-white/70 bg-white/70 px-4 py-3"
+                                className="flex flex-col gap-3 rounded-2xl border border-white/70 bg-white/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
                             >
-                                <div className="flex items-center gap-3">
+                                <div className="flex min-w-0 items-center gap-3">
                                     <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#ede9fe] text-[#5b21b6]">
                                         <KeyRound className="h-4 w-4" />
                                     </div>
-                                    <div>
+                                    <div className="min-w-0">
                                         <p className="text-xs uppercase tracking-[0.2em] text-[#7b6a99]">
                                             {pixKey.type}
                                         </p>
-                                        <p className="text-sm font-medium text-[#2a1f45]">
+                                        <p className="break-all text-sm font-medium text-[#2a1f45]">
                                             {pixKey.key}
                                         </p>
                                     </div>
