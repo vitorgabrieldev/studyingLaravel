@@ -103,9 +103,14 @@ jobs:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
         run: |
-          sshpass -p "$SSH_PASSWORD" ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" << 'EOF'
+          sshpass -p "$SSH_PASSWORD" ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" << EOF
           set -e
           cd "$DEPLOY_PATH"
+          if [ ! -f artisan ]; then
+            echo "Arquivo artisan nao encontrado em $DEPLOY_PATH"
+            ls -la
+            exit 1
+          fi
           php artisan down --retry=60 || true
           composer install --no-dev --prefer-dist --optimize-autoloader
           php artisan optimize:clear
