@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('brand', 30)->default('Visa');
             $table->string('last4', 4);
             $table->text('pan');
-            $table->string('cvv', 10);
+            $table->text('cvv');
             $table->unsignedTinyInteger('exp_month');
             $table->unsignedSmallInteger('exp_year');
             $table->unsignedBigInteger('limit_cents')->default(0);

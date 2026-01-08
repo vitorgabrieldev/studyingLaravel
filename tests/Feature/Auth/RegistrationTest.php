@@ -31,8 +31,8 @@ class RegistrationTest extends TestCase
             'city' => 'Sao Paulo',
             'state' => 'SP',
             'postal_code' => '01000-000',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'password' => '12345678',
+            'password_confirmation' => '12345678',
         ]);
 
         $this->assertAuthenticated();

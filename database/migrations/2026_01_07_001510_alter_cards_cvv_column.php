@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -11,9 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('cards', function (Blueprint $table) {
-            $table->text('cvv')->change();
-        });
+        $driver = Schema::getConnection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            return;
+        }
+
+        if ($driver === 'pgsql') {
+            DB::statement('ALTER TABLE cards ALTER COLUMN cvv TYPE TEXT');
+
+            return;
+        }
+
+        DB::statement('ALTER TABLE cards MODIFY cvv TEXT NOT NULL');
     }
 
     /**
@@ -21,8 +31,18 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('cards', function (Blueprint $table) {
-            $table->string('cvv', 10)->change();
-        });
+        $driver = Schema::getConnection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            return;
+        }
+
+        if ($driver === 'pgsql') {
+            DB::statement('ALTER TABLE cards ALTER COLUMN cvv TYPE VARCHAR(10)');
+
+            return;
+        }
+
+        DB::statement('ALTER TABLE cards MODIFY cvv VARCHAR(10) NOT NULL');
     }
 };
