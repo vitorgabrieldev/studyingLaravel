@@ -99,7 +99,10 @@ export default function Login({
                                         </TextLink>
                                     )}
                                 </div>
-                                <div className="grid grid-cols-4 gap-2 sm:grid-cols-8">
+                                <div
+                                    className="grid grid-cols-4 gap-2 sm:grid-cols-8"
+                                    data-test="password-otp"
+                                >
                                     {passwordDigits.map((digit, index) => (
                                         <input
                                             key={`password-${index}`}

@@ -11,7 +11,7 @@ export default function ConfirmPassword() {
     return (
         <AuthLayout
             title="Confirmar senha"
-            description="Area segura. Confirme sua senha para continuar."
+            description="Área segura. Confirme sua senha para continuar."
         >
             <Head title="Confirmar senha" />
 
@@ -35,7 +35,7 @@ export default function ConfirmPassword() {
 
                         <div className="flex items-center">
                             <Button
-                                className="w-full rounded-full bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
+                                className="w-full rounded-[8px] text-[14px] bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
                                 disabled={processing}
                                 data-test="confirm-password-button"
                             >

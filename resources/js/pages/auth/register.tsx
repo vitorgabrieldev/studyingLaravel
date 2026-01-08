@@ -83,6 +83,22 @@ export default function Register() {
     const password = passwordDigits.join('');
     const passwordConfirmation = confirmDigits.join('');
     const inputClass = 'h-11 rounded-[8px] border border-black/20 bg-white/70';
+    const stepOneComplete =
+        formValues.name.trim() &&
+        formValues.cpf.trim() &&
+        formValues.birth_date.trim() &&
+        formValues.email.trim() &&
+        formValues.phone.trim() &&
+        password.length === DIGIT_COUNT &&
+        passwordConfirmation.length === DIGIT_COUNT &&
+        password === passwordConfirmation;
+    const stepTwoComplete =
+        formValues.address_line.trim() &&
+        formValues.address_number.trim() &&
+        formValues.neighborhood.trim() &&
+        formValues.city.trim() &&
+        formValues.state.trim() &&
+        formValues.postal_code.trim();
 
     const handleFieldChange =
         (field: keyof typeof formValues) =>
@@ -142,10 +158,14 @@ export default function Register() {
                             step={step}
                             errors={errors}
                             onStepChange={(next) => {
-                                clearErrors();
                                 setStep(next);
                             }}
                         />
+                        {Object.keys(errors).length > 0 && (
+                            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                                Corrija os campos destacados para continuar.
+                            </div>
+                        )}
                         <div className="grid gap-6">
                             <div className="rounded-2xl border border-white/70 bg-white/70 p-4 backdrop-blur">
                                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -337,7 +357,10 @@ export default function Register() {
                                         <div className="grid gap-3">
                                             <div className="grid gap-2">
                                                 <Label>Senha (8 dígitos)</Label>
-                                                <div className="grid grid-cols-4 gap-2 sm:grid-cols-8">
+                                                <div
+                                                    className="grid grid-cols-4 gap-2 sm:grid-cols-8"
+                                                    data-test="password-otp"
+                                                >
                                                     {passwordDigits.map(
                                                         (digit, index) => (
                                                             <input
@@ -386,7 +409,10 @@ export default function Register() {
                                                 <Label>
                                                     Confirmar senha
                                                 </Label>
-                                                <div className="grid grid-cols-4 gap-2 sm:grid-cols-8">
+                                                <div
+                                                    className="grid grid-cols-4 gap-2 sm:grid-cols-8"
+                                                    data-test="confirm-password-otp"
+                                                >
                                                     {confirmDigits.map(
                                                         (digit, index) => (
                                                             <input
@@ -453,6 +479,7 @@ export default function Register() {
                                             clearErrors();
                                             setStep(2);
                                         }}
+                                        disabled={!stepOneComplete}
                                         className="w-full rounded-[8px] bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
                                     >
                                         Continuar
@@ -657,6 +684,7 @@ export default function Register() {
                                         </Button>
                                         <Button
                                             type="submit"
+                                            disabled={!stepTwoComplete || processing}
                                             className="flex-1 rounded-[8px] bg-primary text-primary-foreground shadow-lg shadow-purple-500/20 hover:bg-primary/90"
                                             data-test="register-user-button"
                                         >
